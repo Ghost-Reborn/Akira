@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         TextView testText = findViewById(R.id.test_text);
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            String rawJSON = AllAnimeNetwork.connectAllAnime("http://example.com");
+            String rawJSON = AllAnimeNetwork.queryPopular();
             runOnUiThread(() -> testText.setText(rawJSON));
         };
         executor.execute(task);
