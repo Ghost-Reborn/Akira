@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.picasso)
     implementation(libs.okhttp)
     implementation(libs.appcompat)
     implementation(libs.material)
