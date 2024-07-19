@@ -1,6 +1,8 @@
-package com.ghostreborn.akira;
+package com.ghostreborn.akira.allAnime;
 
 import android.util.Log;
+
+import com.ghostreborn.akira.model.Anime;
 
 import org.json.JSONArray;
 import org.json.JSONException;

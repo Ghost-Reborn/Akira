@@ -1,4 +1,4 @@
-package com.ghostreborn.akira;
+package com.ghostreborn.akira.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ghostreborn.akira.model.Anime;
+import com.ghostreborn.akira.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> {
 
-    private List<Anime> animeList;
+    private final List<Anime> animeList;
     public AnimeAdapter(List<Anime> animeList) {
         this.animeList = animeList;
     }

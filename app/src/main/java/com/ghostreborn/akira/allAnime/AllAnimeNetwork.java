@@ -1,4 +1,4 @@
-package com.ghostreborn.akira;
+package com.ghostreborn.akira.allAnime;
 
 import android.util.Log;
 

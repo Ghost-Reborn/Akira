@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ghostreborn.akira.adapter.AnimeAdapter;
+import com.ghostreborn.akira.allAnime.AllAnimeParser;
+import com.ghostreborn.akira.model.Anime;
+
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
