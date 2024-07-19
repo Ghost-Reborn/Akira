@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.model.AnimeDetails;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.Executor;
@@ -32,11 +33,19 @@ public class AnimeDetailsLayout extends AppCompatActivity {
         TextView animeDescriptionTextView = findViewById(R.id.anime_description_text_view);
         Button prequelButton = findViewById(R.id.prequel_button);
         Button sequelButton = findViewById(R.id.sequel_button);
+        FloatingActionButton watchFAB = findViewById(R.id.watch_fab);
 
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
             AnimeDetails details = AllAnimeParser.animeDetails(id);
             runOnUiThread(() -> {
+
+                watchFAB.setOnClickListener(v -> {
+                    Intent episodesIntent = new Intent(this, EpisodesActivity.class);
+                    episodesIntent.putExtra("episodes", details.getEpisodes());
+                    startActivity(episodesIntent);
+                });
+
                 Picasso.get().load(details.getAnimeBanner()).into(animeBannerImageView);
                 Picasso.get().load(details.getAnimeImage()).into(animeThumbnailImageView);
                 animeNameTextView.setText(details.getAnimeName());
