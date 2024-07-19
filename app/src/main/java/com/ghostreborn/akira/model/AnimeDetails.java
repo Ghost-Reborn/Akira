@@ -1,5 +1,7 @@
 package com.ghostreborn.akira.model;
 
+import java.util.ArrayList;
+
 public class AnimeDetails {
 
     private final String animeName;
@@ -8,14 +10,16 @@ public class AnimeDetails {
     private final String animeDescription;
     private final String animePrequel;
     private final String animeSequel;
+    private final ArrayList<String> episodes;
 
-    public AnimeDetails(String animeName,String animeImage,String animeDescription,String animeBanner, String animePrequel, String animeSequel) {
+    public AnimeDetails(String animeName,String animeImage,String animeDescription,String animeBanner, String animePrequel, String animeSequel, ArrayList<String> episodes) {
         this.animeName = animeName;
         this.animeImage = animeImage;
         this.animeDescription = animeDescription;
         this.animeBanner = animeBanner;
         this.animePrequel = animePrequel;
         this.animeSequel = animeSequel;
+        this.episodes = episodes;
     }
 
     public String getAnimeName() {
@@ -42,4 +46,7 @@ public class AnimeDetails {
         return animeSequel;
     }
 
+    public ArrayList<String> getEpisodes() {
+        return episodes;
+    }
 }

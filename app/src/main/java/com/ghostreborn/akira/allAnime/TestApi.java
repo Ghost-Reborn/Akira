@@ -13,7 +13,7 @@ import okhttp3.Response;
 public class TestApi {
 
     public static String testApi() {
-        return AllAnimeParser.episodeDetails("ReooPAxPMsHM4KPMY", "2").getEpisodeThumbnail();
+        return AllAnimeParser.animeDetails("ReooPAxPMsHM4KPMY").toString();
     }
 
     public static String animeDetails(String id, String episode) {

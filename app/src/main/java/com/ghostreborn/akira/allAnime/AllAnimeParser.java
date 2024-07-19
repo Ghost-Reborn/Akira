@@ -80,7 +80,12 @@ public class AllAnimeParser {
                     sequel = relatedShow.getString("showId");
                 }
             }
-            animeDetails = new AnimeDetails(name, thumbnail, description, banner, prequel, sequel);
+            JSONArray availableEpisodes = show.getJSONObject("availableEpisodesDetail").getJSONArray("sub");
+            ArrayList<String> episodes = new ArrayList<>();
+            for (int i = availableEpisodes.length()-1; i >= 0; i--) {
+                episodes.add(availableEpisodes.getString(i));
+            }
+            animeDetails = new AnimeDetails(name, thumbnail, description, banner, prequel, sequel, episodes);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
         }
