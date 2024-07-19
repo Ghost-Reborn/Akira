@@ -2,42 +2,45 @@ package com.ghostreborn.akira.allAnime;
 
 import static com.ghostreborn.akira.allAnime.AllAnimeNetwork.connectAllAnime;
 
+import android.util.Log;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class TestApi {
 
     public static String testApi() {
-        return animeDetails("ReooPAxPMsHM4KPMY");
+        return AllAnimeParser.episodeDetails("ReooPAxPMsHM4KPMY", "2").getEpisodeThumbnail();
     }
 
-    public static String animeDetails(String id) {
-        String variables = "\"showId\":\"" + id + "\"";
-        String queryTypes = "$showId:String!";
-        String query = "show(_id:$showId){" +
-                "name," +
-                "englishName," +
-                "thumbnail," +
-                "description," +
-                "genres," +
-                "banner," +
-                "relatedShows" +
+    public static String animeDetails(String id, String episode) {
+        String variables = "\"showId\":\"" + id + "\",\"episode\":\"" + episode + "\",\"translationType\":\"sub\"";
+        String queryTypes = "$showId:String!,$episode:String!,$translationType:VaildTranslationTypeEnumType!";
+        String query = "episode(showId:$showId,episodeString:$episode,translationType:$translationType){" +
+                "pageStatus{notes}," +
+                "episodeInfo{thumbnails}" +
                 "}";
         return connectAllAnime(variables, queryTypes, query);
     }
 
-//    public static String getJSON(String url) {
-//        OkHttpClient client = new OkHttpClient();
-//        Log.e("TAG", url);
-//        Request request = new Request.Builder().url(url).header("Referer", "https://allanime.to").header("Cipher", "AES256-SHA256").header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0").build();
-//        String rawJson = "NULL";
-//
-//        try (Response response = client.newCall(request).execute()) {
-//            if (response.body() != null) {
-//                rawJson = response.body().string();
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return rawJson;
-//    }
+    public static String getJSON(String url) {
+        OkHttpClient client = new OkHttpClient();
+        Log.e("TAG", url);
+        Request request = new Request.Builder().url(url).header("Referer", "https://allanime.to").header("Cipher", "AES256-SHA256").header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0").build();
+        String rawJson = "NULL";
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.body() != null) {
+                rawJson = response.body().string();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return rawJson;
+    }
 //
 //    public static String neededThings() {
 //        String url = "https://api.allanime.day/api?variables={%22search%22:{%22sortBy%22:%22Recent%22},%22limit%22:26,%22page%22:1,%22translationType%22:%22sub%22,%22countryOrigin%22:%22ALL%22}&extensions={%22persistedQuery%22:{%22version%22:1,%22sha256Hash%22:%2206327bc10dd682e1ee7e07b6db9c16e9ad2fd56c1b769e47513128cd5c9fc77a%22}}";

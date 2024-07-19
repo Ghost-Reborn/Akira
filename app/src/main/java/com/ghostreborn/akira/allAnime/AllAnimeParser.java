@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ghostreborn.akira.model.Anime;
 import com.ghostreborn.akira.model.AnimeDetails;
+import com.ghostreborn.akira.model.EpisodeDetails;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,6 +85,21 @@ public class AllAnimeParser {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
         }
         return animeDetails;
+    }
+
+    public static EpisodeDetails episodeDetails(String id, String episode) {
+        EpisodeDetails episodeDetails = null;
+        try {
+            JSONObject episodeJSON = new JSONObject(AllAnimeNetwork.episodeDetails(id,episode))
+                    .getJSONObject("data")
+                    .getJSONObject("episode");
+            String episodeTitle = episodeJSON.getJSONObject("pageStatus").getString("notes");
+            String episodeThumbnail ="https://wp.youtube-anime.com/aln.youtube-anime.com"+ episodeJSON.getJSONObject("episodeInfo").getJSONArray("thumbnails").getString(0);
+            episodeDetails = new EpisodeDetails(episodeTitle, episodeThumbnail);
+        } catch (JSONException e) {
+            Log.e("AllAnimeParser", "Error parsing JSON: ", e);
+        }
+        return episodeDetails;
     }
 
 }
