@@ -23,8 +23,9 @@ public class AllAnimeParser {
                 JSONObject anime = recommendation.getJSONObject(i)
                         .getJSONObject("anyCard");
                 String name = anime.getString("name");
+                String englishName = anime.getString("englishName");
                 String thumbnail = anime.getString("thumbnail");
-                animes.add(new Anime(name, thumbnail));
+                animes.add(new Anime(englishName, thumbnail));
             }
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: " + e);
