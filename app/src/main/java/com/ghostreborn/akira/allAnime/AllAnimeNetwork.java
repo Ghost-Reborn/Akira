@@ -1,7 +1,5 @@
 package com.ghostreborn.akira.allAnime;
 
-import android.util.Log;
-
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
@@ -13,9 +11,8 @@ public class AllAnimeNetwork {
     public static String connectAllAnime(String variables, String queryTypes, String query) {
         OkHttpClient client = new OkHttpClient();
         String queryUrl = "https://api.allanime.day/api" + "?variables={" + variables + "}&query=" + "query(" + queryTypes + "){" + query + "}";
-        Log.e("TAG", queryUrl);
         Request request = new Request.Builder().url(queryUrl).header("Referer", "https://allanime.to").header("Cipher", "AES256-SHA256").header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0").build();
-        String rawJson = "NULL";
+        String rawJson = "{}";
 
         try (Response response = client.newCall(request).execute()) {
             if (response.body() != null) {
@@ -35,9 +32,16 @@ public class AllAnimeNetwork {
     }
 
     public static String searchAnime(String anime) {
-        String variables = "\"search\":{\"allowAdult\":false,\"allowUnknown\":false,\"query\":\""+anime+"\"},\"limit\":39,\"page\":1,\"translationType\":\"sub\",\"countryOrigin\":\"ALL\"";
+        String variables = "\"search\":{\"allowAdult\":false,\"allowUnknown\":false,\"query\":\"" + anime + "\"},\"limit\":39,\"page\":1,\"translationType\":\"sub\",\"countryOrigin\":\"ALL\"";
         String queryTypes = "$search:SearchInput,$limit:Int,$page:Int,$translationType:VaildTranslationTypeEnumType,$countryOrigin:VaildCountryOriginEnumType";
         String query = "shows(search:$search,limit:$limit,page:$page,translationType:$translationType,countryOrigin:$countryOrigin){edges{_id,name,englishName,thumbnail}}";
+        return connectAllAnime(variables, queryTypes, query);
+    }
+
+    public static String animeDetails(String id) {
+        String variables = "\"showId\":\"" + id + "\"";
+        String queryTypes = "$showId:String!";
+        String query = "show(_id:$showId){name,englishName,thumbnail}";
         return connectAllAnime(variables, queryTypes, query);
     }
 
