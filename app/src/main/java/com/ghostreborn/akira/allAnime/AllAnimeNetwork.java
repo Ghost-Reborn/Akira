@@ -34,4 +34,11 @@ public class AllAnimeNetwork {
         return connectAllAnime(variables, queryTypes, query);
     }
 
+    public static String searchAnime(String anime) {
+        String variables = "\"search\":{\"allowAdult\":false,\"allowUnknown\":false,\"query\":\""+anime+"\"},\"limit\":39,\"page\":1,\"translationType\":\"sub\",\"countryOrigin\":\"ALL\"";
+        String queryTypes = "$search:SearchInput,$limit:Int,$page:Int,$translationType:VaildTranslationTypeEnumType,$countryOrigin:VaildCountryOriginEnumType";
+        String query = "shows(search:$search,limit:$limit,page:$page,translationType:$translationType,countryOrigin:$countryOrigin){edges{_id,name,englishName,thumbnail}}";
+        return connectAllAnime(variables, queryTypes, query);
+    }
+
 }

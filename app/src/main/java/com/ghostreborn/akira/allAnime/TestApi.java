@@ -1,4 +1,4 @@
-package com.ghostreborn.akira.adapter;
+package com.ghostreborn.akira.allAnime;
 
 import android.util.Log;
 
