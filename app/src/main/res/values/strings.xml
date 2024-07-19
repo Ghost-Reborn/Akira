@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Akira</string>
     <string name="anime_image">Anime Image</string>
+    <string name="anime_name">Anime Name</string>
 </resources>

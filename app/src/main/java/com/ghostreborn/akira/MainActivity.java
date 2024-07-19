@@ -1,10 +1,12 @@
 package com.ghostreborn.akira;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -15,14 +17,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView testText = findViewById(R.id.test_text);
+        RecyclerView animeRecyclerView = findViewById(R.id.anime_recycler_view);
+        animeRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            String rawJSON;
-//            rawJSON = TestApi.testApi();
-            rawJSON = AllAnimeNetwork.queryPopular();
-            String finalRawJSON = rawJSON;
-            runOnUiThread(() -> testText.setText(finalRawJSON));
+            List<Anime> popularAnime = AllAnimeParser.queryPopular();
+            runOnUiThread(() -> {
+                AnimeAdapter adapter = new AnimeAdapter(popularAnime);
+                animeRecyclerView.setAdapter(adapter);
+            });
         };
         executor.execute(task);
 
