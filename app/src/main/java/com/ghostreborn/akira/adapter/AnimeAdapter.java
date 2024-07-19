@@ -1,5 +1,7 @@
 package com.ghostreborn.akira.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ghostreborn.akira.model.Anime;
+import com.ghostreborn.akira.AnimeDetailsLayout;
 import com.ghostreborn.akira.R;
+import com.ghostreborn.akira.model.Anime;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,7 +21,10 @@ import java.util.List;
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> {
 
     private final List<Anime> animeList;
-    public AnimeAdapter(List<Anime> animeList) {
+    Context context;
+
+    public AnimeAdapter(Context context, List<Anime> animeList) {
+        this.context = context;
         this.animeList = animeList;
     }
 
@@ -35,6 +41,11 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         Anime anime = animeList.get(position);
         holder.animeNameTextView.setText(anime.getAnimeName());
         Picasso.get().load(anime.getAnimeThumbnail()).into(holder.animeImageView);
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AnimeDetailsLayout.class);
+            intent.putExtra("animeID", anime.getAnimeID());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -48,7 +59,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
 
         public AnimeViewHolder(@NonNull View itemView) {
             super(itemView);
-            animeNameTextView = itemView.findViewById(R.id.animeNameTextView);
+            animeNameTextView = itemView.findViewById(R.id.anime_name_text_view);
             animeImageView = itemView.findViewById(R.id.animeImageView);
         }
     }

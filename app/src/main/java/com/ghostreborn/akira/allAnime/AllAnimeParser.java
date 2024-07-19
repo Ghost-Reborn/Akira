@@ -3,6 +3,7 @@ package com.ghostreborn.akira.allAnime;
 import android.util.Log;
 
 import com.ghostreborn.akira.model.Anime;
+import com.ghostreborn.akira.model.AnimeDetails;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,9 +24,10 @@ public class AllAnimeParser {
 
             for (int i = 0; i < recommendations.length(); i++) {
                 JSONObject anime = recommendations.getJSONObject(i).getJSONObject("anyCard");
+                String id = anime.getString("_id");
                 String name = anime.optString("englishName", anime.getString("name"));
                 if ("null".equals(name)) name = anime.getString("name");
-                animes.add(new Anime(name, anime.getString("thumbnail")));
+                animes.add(new Anime(id, name, anime.getString("thumbnail")));
             }
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
@@ -36,21 +38,52 @@ public class AllAnimeParser {
     public static List<Anime> searchAnime(String animeName) {
         List<Anime> animes = new ArrayList<>();
         try {
-            JSONArray recommendations = new JSONObject(AllAnimeNetwork.searchAnime(animeName))
+            JSONArray edges = new JSONObject(AllAnimeNetwork.searchAnime(animeName))
                     .getJSONObject("data")
                     .getJSONObject("shows")
                     .getJSONArray("edges");
 
-            for (int i = 0; i < recommendations.length(); i++) {
-                JSONObject anime = recommendations.getJSONObject(i);
+            for (int i = 0; i < edges.length(); i++) {
+                JSONObject anime = edges.getJSONObject(i);
+                String id = anime.getString("_id");
                 String name = anime.optString("englishName", anime.getString("name"));
                 if ("null".equals(name)) name = anime.getString("name");
-                animes.add(new Anime(name, anime.getString("thumbnail")));
+                animes.add(new Anime(id, name, anime.getString("thumbnail")));
             }
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
         }
         return animes;
+    }
+
+    public static AnimeDetails animeDetails(String id) {
+        AnimeDetails animeDetails = null;
+        try {
+            JSONObject show = new JSONObject(AllAnimeNetwork.animeDetails(id))
+                    .getJSONObject("data")
+                    .getJSONObject("show");
+            String name = show.getString("englishName");
+            if ("null".equals(name)) name = show.getString("name");
+            // Thumbnail, description, banner, relatedShows
+            String thumbnail = show.getString("thumbnail");
+            String description = show.getString("description");
+            String banner = show.getString("banner");
+            JSONArray relatedShows = show.getJSONArray("relatedShows");
+            String sequel = "";
+            String prequel = "";
+            for (int i = 0; i < relatedShows.length(); i++) {
+                JSONObject relatedShow = relatedShows.getJSONObject(i);
+                if (relatedShow.getString("relation").equals("prequel")) {
+                    prequel = relatedShow.getString("relation");
+                } else if (relatedShow.getString("relation").equals("sequel")) {
+                    sequel = relatedShow.getString("relation");
+                }
+            }
+            animeDetails = new AnimeDetails(name, thumbnail, description, banner, sequel, prequel);
+        } catch (JSONException e) {
+            Log.e("AllAnimeParser", "Error parsing JSON: ", e);
+        }
+        return animeDetails;
     }
 
 }

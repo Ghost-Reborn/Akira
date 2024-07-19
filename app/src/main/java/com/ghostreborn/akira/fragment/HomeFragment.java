@@ -1,4 +1,4 @@
-package com.ghostreborn.akira;
+package com.ghostreborn.akira.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.adapter.AnimeAdapter;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.model.Anime;
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment {
                 Runnable task = () -> {
                     List<Anime> popularAnime = AllAnimeParser.searchAnime(animeSearchView.getQuery().toString());
                     requireActivity().runOnUiThread(() -> {
-                        AnimeAdapter adapter = new AnimeAdapter(popularAnime);
+                        AnimeAdapter adapter = new AnimeAdapter(getContext(), popularAnime);
                         animeRecyclerView.setAdapter(adapter);
                     });
                 };
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
         Runnable task = () -> {
             List<Anime> popularAnime = AllAnimeParser.queryPopular();
             requireActivity().runOnUiThread(() -> {
-                AnimeAdapter adapter = new AnimeAdapter(popularAnime);
+                AnimeAdapter adapter = new AnimeAdapter(getContext(), popularAnime);
                 animeRecyclerView.setAdapter(adapter);
             });
         };
