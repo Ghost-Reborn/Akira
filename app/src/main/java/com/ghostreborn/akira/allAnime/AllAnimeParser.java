@@ -24,6 +24,7 @@ public class AllAnimeParser {
             for (int i = 0; i < recommendations.length(); i++) {
                 JSONObject anime = recommendations.getJSONObject(i).getJSONObject("anyCard");
                 String name = anime.optString("englishName", anime.getString("name"));
+                if ("null".equals(name)) name = anime.getString("name");
                 animes.add(new Anime(name, anime.getString("thumbnail")));
             }
         } catch (JSONException e) {
@@ -43,6 +44,7 @@ public class AllAnimeParser {
             for (int i = 0; i < recommendations.length(); i++) {
                 JSONObject anime = recommendations.getJSONObject(i);
                 String name = anime.optString("englishName", anime.getString("name"));
+                if ("null".equals(name)) name = anime.getString("name");
                 animes.add(new Anime(name, anime.getString("thumbnail")));
             }
         } catch (JSONException e) {
