@@ -74,12 +74,12 @@ public class AllAnimeParser {
             for (int i = 0; i < relatedShows.length(); i++) {
                 JSONObject relatedShow = relatedShows.getJSONObject(i);
                 if (relatedShow.getString("relation").equals("prequel")) {
-                    prequel = relatedShow.getString("relation");
+                    prequel = relatedShow.getString("showId");
                 } else if (relatedShow.getString("relation").equals("sequel")) {
-                    sequel = relatedShow.getString("relation");
+                    sequel = relatedShow.getString("showId");
                 }
             }
-            animeDetails = new AnimeDetails(name, thumbnail, description, banner, sequel, prequel);
+            animeDetails = new AnimeDetails(name, thumbnail, description, banner, prequel, sequel);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
         }

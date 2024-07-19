@@ -4,4 +4,6 @@
     <string name="anime_name">Anime Name</string>
     <string name="anime_thumbnail">Anime Thumbnail</string>
     <string name="anime_banner">Anime Banner</string>
+    <string name="prequel">Prequel</string>
+    <string name="sequel">Sequel</string>
 </resources>

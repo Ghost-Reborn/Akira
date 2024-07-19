@@ -2,6 +2,8 @@ package com.ghostreborn.akira;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +30,8 @@ public class AnimeDetailsLayout extends AppCompatActivity {
         ImageView animeThumbnailImageView = findViewById(R.id.anime_thumbnail_image_view);
         TextView animeNameTextView = findViewById(R.id.anime_name_text_view);
         TextView animeDescriptionTextView = findViewById(R.id.anime_description_text_view);
+        Button prequelButton = findViewById(R.id.prequel_button);
+        Button sequelButton = findViewById(R.id.sequel_button);
 
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
@@ -37,6 +41,26 @@ public class AnimeDetailsLayout extends AppCompatActivity {
                 Picasso.get().load(details.getAnimeImage()).into(animeThumbnailImageView);
                 animeNameTextView.setText(details.getAnimeName());
                 animeDescriptionTextView.setText(details.getAnimeDescription());
+
+                if (!details.getAnimePrequel().isEmpty()){
+                    prequelButton.setVisibility(View.VISIBLE);
+                    prequelButton.setOnClickListener(v -> {
+                        Intent animeIntent = new Intent(AnimeDetailsLayout.this, AnimeDetailsLayout.class);
+                        animeIntent.putExtra("animeID", details.getAnimePrequel());
+                        startActivity(animeIntent);
+                        finish();
+                    });
+                }
+
+                if (!details.getAnimeSequel().isEmpty()){
+                    sequelButton.setVisibility(View.VISIBLE);
+                    sequelButton.setOnClickListener(v -> {
+                        Intent animeIntent = new Intent(AnimeDetailsLayout.this, AnimeDetailsLayout.class);
+                        animeIntent.putExtra("animeID", details.getAnimeSequel());
+                        startActivity(animeIntent);
+                        finish();
+                    });
+                }
             });
         };
         executor.execute(task);
