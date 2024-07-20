@@ -55,4 +55,13 @@ public class AllAnimeNetwork {
         return connectAllAnime(variables, queryTypes, query);
     }
 
+    public static String episodeUrls(String id, String episode) {
+        String variables = "\"showId\":\"" + id + "\",\"episode\":\"" + episode + "\",\"translationType\":\"sub\"";
+        String queryTypes = "$showId:String!,$episode:String!,$translationType:VaildTranslationTypeEnumType!";
+        String query = "episode(showId:$showId,episodeString:$episode,translationType:$translationType){" +
+                "sourceUrls"+
+                "}";
+        return connectAllAnime(variables, queryTypes, query);
+    }
+
 }

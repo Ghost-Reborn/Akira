@@ -1,5 +1,6 @@
 package com.ghostreborn.akira.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
+import com.ghostreborn.akira.ServerActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -36,15 +39,21 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeVie
 
     @Override
     public void onBindViewHolder(@NonNull EpisodeAdapter.AnimeViewHolder holder, int position) {
-        holder.episodeNumberTextView.setText(episodeList.get(position));
+        int pos = position;
+        holder.episodeNumberTextView.setText(episodeList.get(pos));
         if (!parsedEpisodeList.isEmpty()) {
-            holder.episodeTitleTextView.setText(parsedEpisodeList.get(position));
-            Picasso.get().load(episodeThumbnailList.get(position))
+            holder.episodeTitleTextView.setText(parsedEpisodeList.get(pos));
+            Picasso.get().load(episodeThumbnailList.get(pos))
                     .into(holder.animeEpisodeImageView);
         } else {
-            String episodeTitle = "Episode " + episodeList.get(position);
+            String episodeTitle = "Episode " + episodeList.get(pos);
             holder.episodeTitleTextView.setText(episodeTitle);
         }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ServerActivity.class);
+            Constants.animeEpisode = episodeList.get(pos);
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override

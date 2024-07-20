@@ -9,8 +9,9 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.ghostreborn.akira.R;
-import com.ghostreborn.akira.allAnime.TestApi;
+import com.ghostreborn.akira.allAnime.AllAnimeParser;
 
+import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -24,8 +25,12 @@ public class TestFragment extends Fragment {
         TextView testText = view.findViewById(R.id.test_text);
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            String out = TestApi.testApi();
-            requireActivity().runOnUiThread(() -> testText.setText(out));
+            ArrayList<String> sources = AllAnimeParser.getSourceUrls("ReooPAxPMsHM4KPMY", "1");
+            StringBuilder out = new StringBuilder();
+            for (int i=0;i<sources.size();i++){
+                out.append(sources.get(i)).append("\n\n");
+            }
+            requireActivity().runOnUiThread(() -> testText.setText(out.toString()));
         };
         executor.execute(task);
 

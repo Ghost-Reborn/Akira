@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.model.AnimeDetails;
@@ -25,9 +26,6 @@ public class AnimeDetailsLayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anime_details_layout);
 
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("animeID");
-
         ImageView animeBannerImageView = findViewById(R.id.anime_banner_image_view);
         ImageView animeThumbnailImageView = findViewById(R.id.anime_thumbnail_image_view);
         TextView animeNameTextView = findViewById(R.id.anime_name_text_view);
@@ -38,7 +36,7 @@ public class AnimeDetailsLayout extends AppCompatActivity {
 
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            AnimeDetails details = AllAnimeParser.animeDetails(id);
+            AnimeDetails details = AllAnimeParser.animeDetails(Constants.animeID);
             runOnUiThread(() -> {
 
                 watchFAB.setOnClickListener(v -> {
