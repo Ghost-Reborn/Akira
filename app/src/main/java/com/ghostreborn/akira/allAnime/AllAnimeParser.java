@@ -85,7 +85,7 @@ public class AllAnimeParser {
             for (int i = availableEpisodes.length()-1; i >= 0; i--) {
                 episodes.add(availableEpisodes.getString(i));
             }
-            animeDetails = new AnimeDetails(name, thumbnail, description, banner, prequel, sequel, episodes);
+            animeDetails = new AnimeDetails(id,name, thumbnail, description, banner, prequel, sequel, episodes);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
         }
