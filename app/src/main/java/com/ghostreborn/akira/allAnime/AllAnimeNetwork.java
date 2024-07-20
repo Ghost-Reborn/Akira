@@ -49,6 +49,7 @@ public class AllAnimeNetwork {
         String variables = "\"showId\":\"" + id + "\",\"episode\":\"" + episode + "\",\"translationType\":\"sub\"";
         String queryTypes = "$showId:String!,$episode:String!,$translationType:VaildTranslationTypeEnumType!";
         String query = "episode(showId:$showId,episodeString:$episode,translationType:$translationType){" +
+                "episodeString," +
                 "episodeInfo{notes,thumbnails}" +
                 "}";
         return connectAllAnime(variables, queryTypes, query);

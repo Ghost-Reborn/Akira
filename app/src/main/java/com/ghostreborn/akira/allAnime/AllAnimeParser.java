@@ -96,10 +96,19 @@ public class AllAnimeParser {
         try {
             JSONObject episodeJSON = new JSONObject(AllAnimeNetwork.episodeDetails(id,episode))
                     .getJSONObject("data")
-                    .getJSONObject("episode")
-                    .getJSONObject("episodeInfo");
-            String episodeTitle = episodeJSON.getString("notes");
-            String episodeThumbnail ="https://wp.youtube-anime.com/aln.youtube-anime.com"+ episodeJSON.getJSONArray("thumbnails").getString(0);
+                    .getJSONObject("episode");
+            String episodeTitle = "Episode " + episode;
+            if (!episodeJSON.getString("episodeInfo").equals("null")){
+                if (!episodeJSON.getJSONObject("episodeInfo").getString("notes").equals("null")){
+                    episodeTitle = episodeJSON.getJSONObject("episodeInfo").getString("notes");
+                }
+            }
+            String episodeThumbnail = "https://wp.youtube-anime.com/s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg?w=250";
+            if (!episodeJSON.getString("episodeInfo").equals("null")) {
+                if (!episodeJSON.getJSONObject("episodeInfo").getString("thumbnails").equals("null")) {
+                    episodeThumbnail ="https://wp.youtube-anime.com/aln.youtube-anime.com"+ episodeJSON.getJSONObject("episodeInfo").getJSONArray("thumbnails").getString(0);
+                }
+            }
             episodeDetails = new EpisodeDetails(episodeTitle, episodeThumbnail);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);

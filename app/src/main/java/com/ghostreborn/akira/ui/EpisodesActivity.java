@@ -25,7 +25,7 @@ public class EpisodesActivity extends AppCompatActivity {
         List<List<String>> groupedEpisodes = new ArrayList<>();
         int startIndex = 0;
         while (startIndex < episodes.size()) {
-            int endIndex = Math.min(startIndex + 15, episodes.size());
+            int endIndex = Math.min(startIndex + 8, episodes.size());
             groupedEpisodes.add(episodes.subList(startIndex, endIndex));
             startIndex = endIndex;
         }
