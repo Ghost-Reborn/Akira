@@ -1,4 +1,4 @@
-package com.ghostreborn.akira;
+package com.ghostreborn.akira.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.model.AnimeDetails;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

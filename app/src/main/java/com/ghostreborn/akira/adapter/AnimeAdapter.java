@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ghostreborn.akira.AnimeDetailsLayout;
+import com.ghostreborn.akira.ui.AnimeDetailsLayout;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.model.Anime;
 import com.squareup.picasso.Picasso;
