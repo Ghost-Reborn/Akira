@@ -96,9 +96,10 @@ public class AllAnimeParser {
         try {
             JSONObject episodeJSON = new JSONObject(AllAnimeNetwork.episodeDetails(id,episode))
                     .getJSONObject("data")
-                    .getJSONObject("episode");
-            String episodeTitle = episodeJSON.getJSONObject("pageStatus").getString("notes");
-            String episodeThumbnail ="https://wp.youtube-anime.com/aln.youtube-anime.com"+ episodeJSON.getJSONObject("episodeInfo").getJSONArray("thumbnails").getString(0);
+                    .getJSONObject("episode")
+                    .getJSONObject("episodeInfo");
+            String episodeTitle = episodeJSON.getString("notes");
+            String episodeThumbnail ="https://wp.youtube-anime.com/aln.youtube-anime.com"+ episodeJSON.getJSONArray("thumbnails").getString(0);
             episodeDetails = new EpisodeDetails(episodeTitle, episodeThumbnail);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
