@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.ghostreborn.akira.model.Anime;
 import com.ghostreborn.akira.model.AnimeDetails;
-import com.ghostreborn.akira.model.EpisodeDetails;
+import com.ghostreborn.akira.model.Episode;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,10 +96,10 @@ public class AllAnimeParser {
         return animeDetails;
     }
 
-    public static EpisodeDetails episodeDetails(String id, String episode) {
-        EpisodeDetails episodeDetails = null;
+    public static Episode episodeDetails(String id, String episodeNumber) {
+        Episode episode = null;
         try {
-            JSONObject episodeJSON = new JSONObject(AllAnimeNetwork.episodeDetails(id, episode))
+            JSONObject episodeJSON = new JSONObject(AllAnimeNetwork.episodeDetails(id, episodeNumber))
                     .getJSONObject("data")
                     .getJSONObject("episode");
             String episodeTitle = "Episode " + episode;
@@ -114,11 +114,19 @@ public class AllAnimeParser {
                     episodeThumbnail = "https://wp.youtube-anime.com/aln.youtube-anime.com" + episodeJSON.getJSONObject("episodeInfo").getJSONArray("thumbnails").getString(0);
                 }
             }
-            episodeDetails = new EpisodeDetails(episodeTitle, episodeThumbnail);
+            episode = new Episode(episodeNumber,episodeTitle, episodeThumbnail);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
         }
-        return episodeDetails;
+        return episode;
+    }
+
+    public static ArrayList<Episode> getEpisodeDetails(String id, ArrayList<Episode> episodes){
+        ArrayList<Episode> out = new ArrayList<>();
+        for (int i=0;i<episodes.size();i++){
+            out.add(episodeDetails(id, episodes.get(i).getEpisodeNumber()));
+        }
+        return out;
     }
 
     private static ArrayList<String> episodeUrls(String id, String episode) {

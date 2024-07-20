@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
-import com.ghostreborn.akira.model.EpisodeDetails;
+import com.ghostreborn.akira.model.Episode;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -23,12 +23,10 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
 
     private final RecyclerView recyclerView;
     private final Activity activity;
-    private final String animeID;
 
     public EpisodeGroupAdapter(RecyclerView recyclerView, Activity activity, String animeID) {
         this.recyclerView = recyclerView;
         this.activity = activity;
-        this.animeID = animeID;
     }
 
     @NonNull
@@ -45,19 +43,16 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
         holder.episodeGroupTextView.setText(page);
         holder.episodeGroupTextView.setOnClickListener(v -> {
             recyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-            recyclerView.setAdapter(new EpisodeAdapter(Constants.groupedEpisodes.get(position), new ArrayList<>(), new ArrayList<>()));
+            ArrayList<Episode> episodes = new ArrayList<>();
+            for (int i=0;i<Constants.groupedEpisodes.get(position).size();i++) {
+                episodes.add(new Episode(Constants.groupedEpisodes.get(position).get(i), "", ""));
+            }
+            recyclerView.setAdapter(new EpisodeAdapter(episodes));
             Executor executor = Executors.newSingleThreadExecutor();
             Runnable task = () -> {
-                ArrayList<String> parsedEpisodes = new ArrayList<>();
-                ArrayList<String> episodeThumbnails = new ArrayList<>();
-                for (int i=0;i<Constants.groupedEpisodes.get(position).size();i++) {
-                    EpisodeDetails details = AllAnimeParser.episodeDetails(animeID, Constants.groupedEpisodes.get(position).get(i));
-                    parsedEpisodes.add(details.getEpisodeTitle());
-                    episodeThumbnails.add(details.getEpisodeThumbnail());
-                }
+                ArrayList<Episode> updatedEpisodes = AllAnimeParser.getEpisodeDetails(Constants.animeID, episodes);
                 activity.runOnUiThread(() -> {
-                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-                    recyclerView.setAdapter(new EpisodeAdapter(Constants.groupedEpisodes.get(position), parsedEpisodes, episodeThumbnails));
+                    recyclerView.setAdapter(new EpisodeAdapter(updatedEpisodes));
                 });
             };
             executor.execute(task);

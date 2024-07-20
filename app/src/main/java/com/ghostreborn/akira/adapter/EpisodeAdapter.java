@@ -13,20 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.ServerActivity;
+import com.ghostreborn.akira.model.Episode;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeViewHolder> {
 
-    private final List<String> episodeList;
-    private final List<String> parsedEpisodeList;
-    private final List<String> episodeThumbnailList;
+    private final ArrayList<Episode> episodes;
 
-    public EpisodeAdapter(List<String> episodeList, List<String> parsedEpisodeList, List<String> episodeThumbnailList) {
-        this.episodeList = episodeList;
-        this.parsedEpisodeList = parsedEpisodeList;
-        this.episodeThumbnailList = episodeThumbnailList;
+    public EpisodeAdapter(ArrayList<Episode> episodes) {
+        this.episodes = episodes;
     }
 
     @NonNull
@@ -39,26 +36,25 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeVie
 
     @Override
     public void onBindViewHolder(@NonNull EpisodeAdapter.AnimeViewHolder holder, int position) {
-        int pos = position;
-        holder.episodeNumberTextView.setText(episodeList.get(pos));
-        if (!parsedEpisodeList.isEmpty()) {
-            holder.episodeTitleTextView.setText(parsedEpisodeList.get(pos));
-            Picasso.get().load(episodeThumbnailList.get(pos))
+        holder.episodeNumberTextView.setText(episodes.get(position).getEpisodeNumber());
+        if (!episodes.get(position).getEpisodeTitle().isEmpty()) {
+            holder.episodeTitleTextView.setText(episodes.get(position).getEpisodeTitle());
+            Picasso.get().load(episodes.get(position).getEpisodeThumbnail())
                     .into(holder.animeEpisodeImageView);
         } else {
-            String episodeTitle = "Episode " + episodeList.get(pos);
+            String episodeTitle = "Episode " + episodes.get(position).getEpisodeNumber();
             holder.episodeTitleTextView.setText(episodeTitle);
         }
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), ServerActivity.class);
-            Constants.animeEpisode = episodeList.get(pos);
+            Constants.animeEpisode = episodes.get(position).getEpisodeNumber();
             holder.itemView.getContext().startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return episodeList.size();
+        return episodes.size();
     }
 
     public static class AnimeViewHolder extends RecyclerView.ViewHolder {

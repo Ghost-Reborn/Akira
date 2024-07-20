@@ -22,7 +22,7 @@ import java.util.List;
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> {
 
     private final List<Anime> animeList;
-    Context context;
+    private final Context context;
 
     public AnimeAdapter(Context context, List<Anime> animeList) {
         this.context = context;
@@ -31,14 +31,13 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
 
     @NonNull
     @Override
-    public AnimeAdapter.AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.anime_list_layout, parent, false);
-        return new AnimeViewHolder(itemView);
+    public AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.anime_list_layout, parent, false);
+        return new AnimeViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnimeAdapter.AnimeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AnimeViewHolder holder, int position) {
         Anime anime = animeList.get(position);
         holder.animeNameTextView.setText(anime.getAnimeName());
         Picasso.get().load(anime.getAnimeThumbnail()).into(holder.animeImageView);
@@ -54,11 +53,11 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         return animeList.size();
     }
 
-    public static class AnimeViewHolder extends RecyclerView.ViewHolder {
-        public TextView animeNameTextView;
-        public ImageView animeImageView;
+    static class AnimeViewHolder extends RecyclerView.ViewHolder {
+        final TextView animeNameTextView;
+        final ImageView animeImageView;
 
-        public AnimeViewHolder(@NonNull View itemView) {
+        AnimeViewHolder(@NonNull View itemView) {
             super(itemView);
             animeNameTextView = itemView.findViewById(R.id.anime_name_text_view);
             animeImageView = itemView.findViewById(R.id.animeImageView);
