@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
+import com.ghostreborn.akira.model.EpisodeDetails;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -44,16 +45,19 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
         holder.episodeGroupTextView.setText(page);
         holder.episodeGroupTextView.setOnClickListener(v -> {
             recyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-            recyclerView.setAdapter(new EpisodeAdapter(Constants.groupedEpisodes.get(position), new ArrayList<>()));
+            recyclerView.setAdapter(new EpisodeAdapter(Constants.groupedEpisodes.get(position), new ArrayList<>(), new ArrayList<>()));
             Executor executor = Executors.newSingleThreadExecutor();
             Runnable task = () -> {
                 ArrayList<String> parsedEpisodes = new ArrayList<>();
+                ArrayList<String> episodeThumbnails = new ArrayList<>();
                 for (int i=0;i<Constants.groupedEpisodes.get(position).size();i++) {
-                    parsedEpisodes.add(AllAnimeParser.episodeDetails(animeID, Constants.groupedEpisodes.get(position).get(i)).getEpisodeTitle());
+                    EpisodeDetails details = AllAnimeParser.episodeDetails(animeID, Constants.groupedEpisodes.get(position).get(i));
+                    parsedEpisodes.add(details.getEpisodeTitle());
+                    episodeThumbnails.add(details.getEpisodeThumbnail());
                 }
                 activity.runOnUiThread(() -> {
                     recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-                    recyclerView.setAdapter(new EpisodeAdapter(Constants.groupedEpisodes.get(position), parsedEpisodes));
+                    recyclerView.setAdapter(new EpisodeAdapter(Constants.groupedEpisodes.get(position), parsedEpisodes, episodeThumbnails));
                 });
             };
             executor.execute(task);
