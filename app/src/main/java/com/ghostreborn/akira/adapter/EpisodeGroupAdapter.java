@@ -10,38 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
-import com.ghostreborn.akira.model.EpisodeDetails;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapter.AnimeViewHolder> {
 
-    private final List<List<String>> episodeGroups;
     private final RecyclerView recyclerView;
     private final Activity activity;
     private final String animeID;
 
-    public EpisodeGroupAdapter(List<String> ungroupedEpisodes, RecyclerView recyclerView, Activity activity, String animeID) {
-        episodeGroups = groupEpisodes(ungroupedEpisodes);
+    public EpisodeGroupAdapter(RecyclerView recyclerView, Activity activity, String animeID) {
         this.recyclerView = recyclerView;
         this.activity = activity;
         this.animeID = animeID;
-    }
-
-    private static List<List<String>> groupEpisodes(List<String> episodes) {
-        List<List<String>> groupedEpisodes = new ArrayList<>();
-        int startIndex = 0;
-        while (startIndex < episodes.size()) {
-            int endIndex = Math.min(startIndex + 15, episodes.size());
-            groupedEpisodes.add(episodes.subList(startIndex, endIndex));
-            startIndex = endIndex;
-        }
-        return groupedEpisodes;
     }
 
     @NonNull
@@ -57,16 +43,17 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
         String page = position + 1 + "";
         holder.episodeGroupTextView.setText(page);
         holder.episodeGroupTextView.setOnClickListener(v -> {
+            recyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
+            recyclerView.setAdapter(new EpisodeAdapter(Constants.groupedEpisodes.get(position), new ArrayList<>()));
             Executor executor = Executors.newSingleThreadExecutor();
             Runnable task = () -> {
-                List<String> parsedEpisodes = new ArrayList<>();
-                for (int i=0;i<episodeGroups.get(position).size();i++){
-                    EpisodeDetails episodeDetails = AllAnimeParser.episodeDetails(animeID, episodeGroups.get(position).get(i));
-                    parsedEpisodes.add(episodeDetails.getEpisodeTitle());
+                ArrayList<String> parsedEpisodes = new ArrayList<>();
+                for (int i=0;i<Constants.groupedEpisodes.get(position).size();i++) {
+                    parsedEpisodes.add(AllAnimeParser.episodeDetails(animeID, Constants.groupedEpisodes.get(position).get(i)).getEpisodeTitle());
                 }
                 activity.runOnUiThread(() -> {
-                    recyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-                    recyclerView.setAdapter(new EpisodeAdapter(episodeGroups.get(position), parsedEpisodes));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                    recyclerView.setAdapter(new EpisodeAdapter(Constants.groupedEpisodes.get(position), parsedEpisodes));
                 });
             };
             executor.execute(task);
@@ -75,7 +62,7 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
 
     @Override
     public int getItemCount() {
-        return episodeGroups.size();
+        return Constants.groupedEpisodes.size();
     }
 
     public static class AnimeViewHolder extends RecyclerView.ViewHolder {

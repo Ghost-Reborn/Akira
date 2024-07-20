@@ -10,12 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.adapter.AnimeAdapter;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
-import com.ghostreborn.akira.model.Anime;
 
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -35,9 +34,9 @@ public class HomeFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 Executor executor = Executors.newSingleThreadExecutor();
                 Runnable task = () -> {
-                    List<Anime> popularAnime = AllAnimeParser.searchAnime(animeSearchView.getQuery().toString());
+                    Constants.animes = AllAnimeParser.searchAnime(animeSearchView.getQuery().toString());
                     requireActivity().runOnUiThread(() -> {
-                        AnimeAdapter adapter = new AnimeAdapter(getContext(), popularAnime);
+                        AnimeAdapter adapter = new AnimeAdapter(getContext(), Constants.animes);
                         animeRecyclerView.setAdapter(adapter);
                     });
                 };
@@ -53,9 +52,9 @@ public class HomeFragment extends Fragment {
 
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            List<Anime> popularAnime = AllAnimeParser.queryPopular();
+            Constants.animes = AllAnimeParser.queryPopular();
             requireActivity().runOnUiThread(() -> {
-                AnimeAdapter adapter = new AnimeAdapter(getContext(), popularAnime);
+                AnimeAdapter adapter = new AnimeAdapter(getContext(), Constants.animes);
                 animeRecyclerView.setAdapter(adapter);
             });
         };

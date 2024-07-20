@@ -11,12 +11,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AllAnimeParser {
 
-    public static List<Anime> queryPopular() {
-        List<Anime> animes = new ArrayList<>();
+    public static ArrayList<Anime> queryPopular() {
+        ArrayList<Anime> animes = new ArrayList<>();
         try {
             JSONArray recommendations = new JSONObject(AllAnimeNetwork.queryPopular())
                     .getJSONObject("data")
@@ -36,8 +35,8 @@ public class AllAnimeParser {
         return animes;
     }
 
-    public static List<Anime> searchAnime(String animeName) {
-        List<Anime> animes = new ArrayList<>();
+    public static ArrayList<Anime> searchAnime(String animeName) {
+        ArrayList<Anime> animes = new ArrayList<>();
         try {
             JSONArray edges = new JSONObject(AllAnimeNetwork.searchAnime(animeName))
                     .getJSONObject("data")
