@@ -102,7 +102,7 @@ public class AllAnimeParser {
             JSONObject episodeJSON = new JSONObject(AllAnimeNetwork.episodeDetails(id, episodeNumber))
                     .getJSONObject("data")
                     .getJSONObject("episode");
-            String episodeTitle = "Episode " + episode;
+            String episodeTitle = "Episode " + episodeNumber;
             if (!episodeJSON.getString("episodeInfo").equals("null")) {
                 if (!episodeJSON.getJSONObject("episodeInfo").getString("notes").equals("null")) {
                     episodeTitle = episodeJSON.getJSONObject("episodeInfo").getString("notes");
@@ -149,7 +149,7 @@ public class AllAnimeParser {
                 }
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("TAG", "Error parsing JSON: ", e);
         }
         return sources;
     }
@@ -168,7 +168,7 @@ public class AllAnimeParser {
                     out.add(link);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("TAG", "Error parsing JSON: ", e);
             }
         }
         return out;
