@@ -1,4 +1,4 @@
-package com.ghostreborn.akira;
+package com.ghostreborn.akira.ui;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.ghostreborn.akira.Constants;
+import com.ghostreborn.akira.R;
 
 public class PlayEpisodeActivity extends AppCompatActivity {
 

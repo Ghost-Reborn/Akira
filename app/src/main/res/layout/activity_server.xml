@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ServerActivity">
+    tools:context=".ui.ServerActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/server_recycler_view"

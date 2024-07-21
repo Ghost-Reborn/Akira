@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
-import com.ghostreborn.akira.ServerActivity;
+import com.ghostreborn.akira.ui.ServerActivity;
 import com.ghostreborn.akira.model.Episode;
 import com.squareup.picasso.Picasso;
 

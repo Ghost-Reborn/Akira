@@ -15,11 +15,11 @@
         android:theme="@style/Theme.Akira"
         tools:targetApi="31">
         <activity
-            android:name=".PlayEpisodeActivity"
+            android:name=".ui.PlayEpisodeActivity"
             android:exported="false"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".ServerActivity"
+            android:name=".ui.ServerActivity"
             android:exported="false" />
         <activity
             android:name=".ui.EpisodesActivity"

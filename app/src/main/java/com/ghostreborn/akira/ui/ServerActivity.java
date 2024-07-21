@@ -1,4 +1,4 @@
-package com.ghostreborn.akira;
+package com.ghostreborn.akira.ui;
 
 import android.os.Bundle;
 
@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ghostreborn.akira.Constants;
+import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.adapter.ServerAdapter;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
 

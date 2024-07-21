@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ghostreborn.akira.Constants;
-import com.ghostreborn.akira.PlayEpisodeActivity;
+import com.ghostreborn.akira.ui.PlayEpisodeActivity;
 import com.ghostreborn.akira.R;
 
 import java.util.List;
