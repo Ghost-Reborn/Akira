@@ -12,5 +12,6 @@ public class Constants {
     public static List<List<String>> groupedEpisodes;
     public static String animeID;
     public static String animeEpisode;
+    public static String episodeUrl;
 
 }
