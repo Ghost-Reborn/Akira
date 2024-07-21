@@ -11,21 +11,21 @@ import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.adapter.EpisodeAdapter;
 import com.ghostreborn.akira.adapter.EpisodeGroupAdapter;
+import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.model.Episode;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class EpisodesActivity extends AppCompatActivity {
 
-    public static List<List<String>> groupEpisodes(List<String> episodes) {
-        List<List<String>> groupedEpisodes = new ArrayList<>();
+    public static ArrayList<ArrayList<String>> groupEpisodes(ArrayList<String> episodes) {
+        ArrayList<ArrayList<String>> groupedEpisodes = new ArrayList<>();
         int startIndex = 0;
         while (startIndex < episodes.size()) {
             int endIndex = Math.min(startIndex + 8, episodes.size());
-            groupedEpisodes.add(episodes.subList(startIndex, endIndex));
+            groupedEpisodes.add(new ArrayList<>(episodes.subList(startIndex, endIndex)));
             startIndex = endIndex;
         }
         return groupedEpisodes;
@@ -56,14 +56,8 @@ public class EpisodesActivity extends AppCompatActivity {
 
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            ArrayList<Episode> parsedEpisodes = new ArrayList<>();
-            for (int i=0;i<Constants.groupedEpisodes.get(0).size();i++) {
-                episodes.add(new Episode(Constants.groupedEpisodes.get(0).get(i), "", ""));
-            }
-            runOnUiThread(() -> {
-                episodesRecycler.setLayoutManager(new LinearLayoutManager(this));
-                episodesRecycler.setAdapter(new EpisodeAdapter(parsedEpisodes));
-            });
+            ArrayList<Episode> updatedEpisodes = AllAnimeParser.getEpisodeDetails(Constants.animeID, episodes);
+            runOnUiThread(() -> episodesRecycler.setAdapter(new EpisodeAdapter(updatedEpisodes)));
         };
         executor.execute(task);
 
