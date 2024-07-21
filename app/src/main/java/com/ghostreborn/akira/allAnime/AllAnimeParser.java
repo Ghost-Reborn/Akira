@@ -30,8 +30,8 @@ public class AllAnimeParser {
             for (int i = 0; i < recommendations.length(); i++) {
                 JSONObject anime = recommendations.getJSONObject(i).getJSONObject("anyCard");
                 String id = anime.getString("_id");
-                String name = anime.optString("englishName", anime.getString("name"));
-                if ("null".equals(name)) name = anime.getString("name");
+                String name = anime.optString("englishName", anime.optString("name"));
+                name = "null".equals(name) ? anime.getString("name") : name;
                 animes.add(new Anime(id, name, anime.getString("thumbnail")));
             }
         } catch (JSONException e) {
@@ -62,90 +62,87 @@ public class AllAnimeParser {
     }
 
     public static AnimeDetails animeDetails(String id) {
-        AnimeDetails animeDetails = null;
         try {
             JSONObject show = new JSONObject(AllAnimeNetwork.animeDetails(id))
                     .getJSONObject("data")
                     .getJSONObject("show");
-            String name = show.getString("englishName");
-            if ("null".equals(name)) name = show.getString("name");
-            // Thumbnail, description, banner, relatedShows
+            String name = show.optString("englishName", show.getString("name"));
             String thumbnail = show.getString("thumbnail");
             String description = show.getString("description");
             String banner = show.getString("banner");
+
+            String prequel = "", sequel = "";
             JSONArray relatedShows = show.getJSONArray("relatedShows");
-            String sequel = "";
-            String prequel = "";
             for (int i = 0; i < relatedShows.length(); i++) {
                 JSONObject relatedShow = relatedShows.getJSONObject(i);
-                if (relatedShow.getString("relation").equals("prequel")) {
-                    prequel = relatedShow.getString("showId");
-                } else if (relatedShow.getString("relation").equals("sequel")) {
-                    sequel = relatedShow.getString("showId");
-                }
+                String relation = relatedShow.getString("relation");
+                if ("prequel".equals(relation)) prequel = relatedShow.getString("showId");
+                if ("sequel".equals(relation)) sequel = relatedShow.getString("showId");
             }
+
             JSONArray availableEpisodes = show.getJSONObject("availableEpisodesDetail").getJSONArray("sub");
             ArrayList<String> episodes = new ArrayList<>();
             for (int i = availableEpisodes.length() - 1; i >= 0; i--) {
                 episodes.add(availableEpisodes.getString(i));
             }
-            animeDetails = new AnimeDetails(id, name, thumbnail, description, banner, prequel, sequel, episodes);
+
+            return new AnimeDetails(id, name, thumbnail, description, banner, prequel, sequel, episodes);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
+            return null;
         }
-        return animeDetails;
     }
 
-    public static Episode episodeDetails(String id, String episodeNumber) {
-        Episode episode = null;
-        try {
-            JSONObject episodeJSON = new JSONObject(AllAnimeNetwork.episodeDetails(id, episodeNumber))
-                    .getJSONObject("data")
-                    .getJSONObject("episode");
-            String episodeTitle = "Episode " + episodeNumber;
-            if (!episodeJSON.getString("episodeInfo").equals("null")) {
-                if (!episodeJSON.getJSONObject("episodeInfo").getString("notes").equals("null")) {
-                    episodeTitle = episodeJSON.getJSONObject("episodeInfo").getString("notes");
-                }
-            }
-            String episodeThumbnail = "https://wp.youtube-anime.com/s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg?w=250";
-            if (!episodeJSON.getString("episodeInfo").equals("null")) {
-                if (!episodeJSON.getJSONObject("episodeInfo").getString("thumbnails").equals("null")) {
-                    episodeThumbnail = "https://wp.youtube-anime.com/aln.youtube-anime.com" + episodeJSON.getJSONObject("episodeInfo").getJSONArray("thumbnails").getString(0);
-                }
-            }
-            episode = new Episode(episodeNumber,episodeTitle, episodeThumbnail);
-        } catch (JSONException e) {
-            Log.e("AllAnimeParser", "Error parsing JSON: ", e);
-        }
-        return episode;
-    }
-
-    public static ArrayList<Episode> getEpisodeDetails(String id, ArrayList<Episode> episodes){
+    public static ArrayList<Episode> getEpisodeDetails(String id, ArrayList<Episode> episodes) {
         ArrayList<Episode> out = new ArrayList<>();
-        for (int i=0;i<episodes.size();i++){
-            out.add(episodeDetails(id, episodes.get(i).getEpisodeNumber()));
+
+        for (Episode episode : episodes) {
+            try {
+                // Fetch the JSON response
+                String episodeDetailsJson = AllAnimeNetwork.episodeDetails(id, episode.getEpisodeNumber());
+                JSONObject jsonResponse = new JSONObject(episodeDetailsJson);
+
+                JSONObject dataObject = jsonResponse.getJSONObject("data");
+                JSONObject episodeObject = dataObject.getJSONObject("episode");
+
+                JSONObject episodeInfo = episodeObject.getJSONObject("episodeInfo");
+                String episodeTitle = episodeInfo.optString("notes", "Episode " + episode.getEpisodeNumber());
+
+                String episodeThumbnail = "https://wp.youtube-anime.com/s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg?w=250";
+                JSONArray thumbnails = episodeInfo.optJSONArray("thumbnails");
+                if (thumbnails != null && thumbnails.length() > 0) {
+                    String thumbnailUrl = thumbnails.optString(0, "");
+                    if (!thumbnailUrl.isEmpty()) {
+                        episodeThumbnail = "https://wp.youtube-anime.com/aln.youtube-anime.com" + thumbnailUrl;
+                    }
+                }
+
+                // Add the new Episode object to the list
+                out.add(new Episode(episode.getEpisodeNumber(), episodeTitle, episodeThumbnail));
+            } catch (JSONException e) {
+                Log.e("AllAnimeParser", "Error parsing JSON: ", e);
+                out.add(null);
+            }
         }
+
         return out;
     }
 
     private static ArrayList<String> episodeUrls(String id, String episode) {
         ArrayList<String> sources = new ArrayList<>();
-        String rawJSON = AllAnimeNetwork.episodeUrls(id, episode);
         try {
-            JSONArray sourceUrls = new JSONObject(rawJSON)
+            JSONArray sourceUrls = new JSONObject(AllAnimeNetwork.episodeUrls(id, episode))
                     .getJSONObject("data")
                     .getJSONObject("episode")
                     .getJSONArray("sourceUrls");
+
             for (int i = 0; i < sourceUrls.length(); i++) {
                 String sourceUrl = sourceUrls.getJSONObject(i).getString("sourceUrl");
                 if (sourceUrl.contains("--") && sourceUrl.length() > 138) {
                     String decrypted = decryptAllAnimeServer(sourceUrl.substring(2)).replace("clock", "clock.json");
-                    if (decrypted.contains("fast4speed")) {
-                        continue;
+                    if (!decrypted.contains("fast4speed")) {
+                        sources.add("https://allanime.day" + decrypted);
                     }
-                    String apiUrl = "https://allanime.day" + decrypted;
-                    sources.add(apiUrl);
                 }
             }
         } catch (JSONException e) {
@@ -154,18 +151,16 @@ public class AllAnimeParser {
         return sources;
     }
 
-    public static ArrayList<String> getSourceUrls(String id, String episode){
-        ArrayList<String> sources = episodeUrls(id,episode);
+    public static ArrayList<String> getSourceUrls(String id, String episode) {
+        ArrayList<String> sources = episodeUrls(id, episode);
         ArrayList<String> out = new ArrayList<>();
-        for (int i=0;i<sources.size();i++){
-            Log.e("TAG", sources.get(i));
-            String rawJSON = getJSON(sources.get(i));
-            try{
-                JSONArray linksArray = new JSONObject(rawJSON)
-                        .getJSONArray("links");
-                for (int j=0;j<linksArray.length();j++){
-                    String link = linksArray.getJSONObject(j).getString("link");
-                    out.add(link);
+
+        for (String source : sources) {
+            try {
+                String rawJSON = getJSON(source);
+                JSONArray linksArray = new JSONObject(rawJSON).getJSONArray("links");
+                for (int j = 0; j < linksArray.length(); j++) {
+                    out.add(linksArray.getJSONObject(j).getString("link"));
                 }
             } catch (JSONException e) {
                 Log.e("TAG", "Error parsing JSON: ", e);
@@ -176,32 +171,27 @@ public class AllAnimeParser {
 
     public static String getJSON(String url) {
         OkHttpClient client = new OkHttpClient();
-        Log.e("TAG", url);
-        Request request = new Request.Builder().url(url).header("Referer", "https://allanime.to").header("Cipher", "AES256-SHA256").header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0").build();
-        String rawJson = "NULL";
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Referer", "https://allanime.to")
+                .header("Cipher", "AES256-SHA256")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0")
+                .build();
 
         try (Response response = client.newCall(request).execute()) {
-            if (response.body() != null) {
-                rawJson = response.body().string();
-            }
+            return response.body() != null ? response.body().string() : "NULL";
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Log.e("TAG", "Error fetching JSON: ", e);
         }
-        return rawJson;
+        return "{}";
     }
 
     public static String decryptAllAnimeServer(String decrypt) {
         StringBuilder decryptedString = new StringBuilder();
-
         for (int i = 0; i < decrypt.length(); i += 2) {
-            String hex = decrypt.substring(i, i + 2);
-            int dec = Integer.parseInt(hex, 16);
-            int xor = dec ^ 56;
-            String oct = String.format("%03o", xor);
-            char decryptedChar = (char) Integer.parseInt(oct, 8);
-            decryptedString.append(decryptedChar);
+            int dec = Integer.parseInt(decrypt.substring(i, i + 2), 16);
+            decryptedString.append((char) (dec ^ 56));
         }
-
         return decryptedString.toString();
     }
 
