@@ -7,13 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="com.ghostreborn.akira.fragment.HomeFragment"
+    <FrameLayout
+        android:id="@+id/home_fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/bottom_navigation_container"
+        android:layout_width="200dp"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_background"
+            app:labelVisibilityMode="selected"
+            app:menu="@menu/nav_menu" />
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
