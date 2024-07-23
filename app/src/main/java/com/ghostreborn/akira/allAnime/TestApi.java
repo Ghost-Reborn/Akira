@@ -4,12 +4,7 @@ import static com.ghostreborn.akira.allAnime.AllAnimeNetwork.connectAllAnime;
 
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,72 +12,15 @@ import okhttp3.Response;
 
 public class TestApi {
 
-    public static ArrayList<String> testApi() {
-        ArrayList<String> sources = new ArrayList<>();
-        String rawJSON = animeDetails("ReooPAxPMsHM4KPMY", "60");
-        try{
-            JSONArray sourceUrls = new JSONObject(rawJSON)
-                    .getJSONObject("data")
-                    .getJSONObject("episode")
-                    .getJSONArray("sourceUrls");
-            for(int i=0;i<sourceUrls.length();i++){
-                String sourceUrl = sourceUrls.getJSONObject(i).getString("sourceUrl");
-                if (sourceUrl.contains("--") && sourceUrl.length() > 138){
-                    String decrypted = decryptAllAnimeServer(sourceUrl.substring(2)).replace("clock", "clock.json");
-                    if (decrypted.contains("fast4speed")){
-                        continue;
-                    }
-                    String apiUrl = "https://allanime.day" + decrypted;
-                    sources.add(apiUrl);
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return sources;
-    }
-
-    public static ArrayList<String> getUrls(){
-        ArrayList<String> sources = testApi();
-        ArrayList<String> out = new ArrayList<>();
-        for (int i=0;i<sources.size();i++){
-            Log.e("TAG", sources.get(i));
-            String rawJSON = getJSON(sources.get(i));
-            try{
-                JSONArray linksArray = new JSONObject(rawJSON)
-                        .getJSONArray("links");
-                for (int j=0;j<linksArray.length();j++){
-                    String link = linksArray.getJSONObject(j).getString("link");
-                    out.add(link);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return out;
-    }
-
-    public static String decryptAllAnimeServer(String decrypt) {
-        StringBuilder decryptedString = new StringBuilder();
-
-        for (int i = 0; i < decrypt.length(); i += 2) {
-            String hex = decrypt.substring(i, i + 2);
-            int dec = Integer.parseInt(hex, 16);
-            int xor = dec ^ 56;
-            String oct = String.format("%03o", xor);
-            char decryptedChar = (char) Integer.parseInt(oct, 8);
-            decryptedString.append(decryptedChar);
-        }
-
-        return decryptedString.toString();
-    }
-
-    public static String animeDetails(String id, String episode) {
-        String variables = "\"showId\":\"" + id + "\",\"episode\":\"" + episode + "\",\"translationType\":\"sub\"";
-        String queryTypes = "$showId:String!,$episode:String!,$translationType:VaildTranslationTypeEnumType!";
-        String query = "episode(showId:$showId,episodeString:$episode,translationType:$translationType){" +
-                "name,englishName,thumbnail,description,banner,relatedShows,availableEpisodesDetail" +
-                "}";
+    public static String testApi() {
+        String variables = "\"type\":\"manga\",\"size\":20,\"dateRange\":1,\"page\":1,\"allowAdult\":false,\"allowUnknown\":false";
+        String queryTypes = "$search:SearchInput,$limit:Int,$page:Int,$translationType:VaildTranslationTypeMangaEnumType,$countryOrigin:VaildCountryOriginEnumType";
+        String query = "mangas(search:$search,limit:$limit,page:$page,translationType:$translationType,countryOrigin:$countryOrigin){edges{" +
+                "_id," +
+                "name," +
+                "englishName," +
+                "thumbnail" +
+                "}}";
         return connectAllAnime(variables, queryTypes, query);
     }
 

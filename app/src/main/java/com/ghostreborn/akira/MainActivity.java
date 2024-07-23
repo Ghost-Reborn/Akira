@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ghostreborn.akira.fragment.HomeFragment;
+import com.ghostreborn.akira.fragment.TestFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.home_fragment_container, new HomeFragment())
+                .replace(R.id.home_fragment_container, new TestFragment())
                 .commit();
 
     }
