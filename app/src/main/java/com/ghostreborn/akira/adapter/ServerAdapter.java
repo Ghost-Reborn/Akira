@@ -1,5 +1,6 @@
 package com.ghostreborn.akira.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ghostreborn.akira.Constants;
-import com.ghostreborn.akira.ui.PlayEpisodeActivity;
 import com.ghostreborn.akira.R;
+import com.ghostreborn.akira.ui.PlayEpisodeActivity;
 
 import java.util.List;
 
 public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.AnimeViewHolder> {
 
+    private final Context context;
     private final List<String> serverList;
 
-    public ServerAdapter(List<String> serverList) {
+    public ServerAdapter(Context context, List<String> serverList) {
+        this.context = context;
         this.serverList = serverList;
     }
 
@@ -35,9 +38,8 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.AnimeViewH
     public void onBindViewHolder(@NonNull ServerAdapter.AnimeViewHolder holder, int position) {
         holder.serverTextView.setText(serverList.get(position));
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), PlayEpisodeActivity.class);
             Constants.episodeUrl = serverList.get(position);
-            holder.itemView.getContext().startActivity(intent);
+            context.startActivity(new Intent(context, PlayEpisodeActivity.class));
         });
     }
 

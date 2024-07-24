@@ -1,6 +1,5 @@
 package com.ghostreborn.akira.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,9 +35,6 @@ public class EpisodesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_episodes);
 
-        Intent intent = getIntent();
-        String animeID = intent.getStringExtra("animeID");
-        Constants.episodes = intent.getStringArrayListExtra("episodes");
         RecyclerView episodesRecycler = findViewById(R.id.episodes_recycler_view);
         episodesRecycler.setLayoutManager(new LinearLayoutManager(this));
         Constants.groupedEpisodes = groupEpisodes(Constants.episodes);
@@ -51,7 +47,7 @@ public class EpisodesActivity extends AppCompatActivity {
 
         RecyclerView episodeGroupRecycler = findViewById(R.id.episode_group_recycler_view);
         episodeGroupRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        EpisodeGroupAdapter episodeGroupAdapter = new EpisodeGroupAdapter(episodesRecycler, this, animeID);
+        EpisodeGroupAdapter episodeGroupAdapter = new EpisodeGroupAdapter(episodesRecycler, this);
         episodeGroupRecycler.setAdapter(episodeGroupAdapter);
 
         Executor executor = Executors.newSingleThreadExecutor();

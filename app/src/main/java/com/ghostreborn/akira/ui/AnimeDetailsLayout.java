@@ -41,8 +41,8 @@ public class AnimeDetailsLayout extends AppCompatActivity {
 
                 watchFAB.setOnClickListener(v -> {
                     Intent episodesIntent = new Intent(this, EpisodesActivity.class);
-                    episodesIntent.putExtra("animeID", details.getAnimeID());
-                    episodesIntent.putExtra("episodes", details.getEpisodes());
+                    Constants.animeID = details.getAnimeID();
+                    Constants.episodes = details.getEpisodes();
                     startActivity(episodesIntent);
                 });
 

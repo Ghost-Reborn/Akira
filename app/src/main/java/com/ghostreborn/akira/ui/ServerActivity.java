@@ -27,7 +27,7 @@ public class ServerActivity extends AppCompatActivity {
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
             ArrayList<String> servers = AllAnimeParser.getSourceUrls(Constants.animeID, Constants.animeEpisode);
-            runOnUiThread(() -> serverRecyclerView.setAdapter(new ServerAdapter(servers)));
+            runOnUiThread(() -> serverRecyclerView.setAdapter(new ServerAdapter(this,servers)));
         };
         executor.execute(task);
 

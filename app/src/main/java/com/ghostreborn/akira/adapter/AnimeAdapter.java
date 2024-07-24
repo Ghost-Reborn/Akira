@@ -42,9 +42,8 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         holder.animeNameTextView.setText(anime.getAnimeName());
         Picasso.get().load(anime.getAnimeThumbnail()).into(holder.animeImageView);
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, AnimeDetailsLayout.class);
             Constants.animeID = anime.getAnimeID();
-            context.startActivity(intent);
+            context.startActivity(new Intent(context, AnimeDetailsLayout.class));
         });
     }
 

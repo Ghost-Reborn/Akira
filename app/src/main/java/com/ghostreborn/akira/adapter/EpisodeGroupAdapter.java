@@ -24,7 +24,7 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
     private final RecyclerView recyclerView;
     private final Activity activity;
 
-    public EpisodeGroupAdapter(RecyclerView recyclerView, Activity activity, String animeID) {
+    public EpisodeGroupAdapter(RecyclerView recyclerView, Activity activity) {
         this.recyclerView = recyclerView;
         this.activity = activity;
     }
