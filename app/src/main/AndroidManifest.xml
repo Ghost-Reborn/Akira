@@ -25,7 +25,7 @@
             android:name=".ui.EpisodesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AnimeDetailsLayout"
+            android:name=".ui.AnimeDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

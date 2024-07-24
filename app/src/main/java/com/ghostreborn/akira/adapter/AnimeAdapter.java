@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.model.Anime;
-import com.ghostreborn.akira.ui.AnimeDetailsLayout;
+import com.ghostreborn.akira.ui.AnimeDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> {
@@ -39,7 +39,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         Picasso.get().load(anime.getAnimeThumbnail()).into(holder.animeImageView);
         holder.itemView.setOnClickListener(v -> {
             Constants.animeID = anime.getAnimeID();
-            context.startActivity(new Intent(context, AnimeDetailsLayout.class));
+            context.startActivity(new Intent(context, AnimeDetailsActivity.class));
         });
     }
 
