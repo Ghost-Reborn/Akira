@@ -3,8 +3,12 @@ package com.ghostreborn.akira;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.ghostreborn.akira.fragment.HomeFragment;
+import com.ghostreborn.akira.fragment.MangaFragment;
 import com.ghostreborn.akira.fragment.TestFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,8 +19,26 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.home_fragment_container, new TestFragment())
+                .replace(R.id.home_fragment_container, new HomeFragment())
                 .commit();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment;
+
+            int id = item.getItemId();
+            if (id == R.id.nav_anime) {
+                selectedFragment = new HomeFragment();
+            } else if (id == R.id.nav_manga) {
+                selectedFragment = new MangaFragment();
+            }else {
+                selectedFragment = new TestFragment();
+            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container, selectedFragment).commit();
+            return true;
+        });
 
     }
 }
