@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO rework episode selection screen
     // TODO show server selection as a popup
     // TODO work on Manga
+    // TODO get first 15 episode details on AnimeDetailsLayout
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

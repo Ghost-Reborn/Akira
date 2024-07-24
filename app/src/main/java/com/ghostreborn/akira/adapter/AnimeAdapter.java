@@ -12,21 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ghostreborn.akira.Constants;
-import com.ghostreborn.akira.ui.AnimeDetailsLayout;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.model.Anime;
+import com.ghostreborn.akira.ui.AnimeDetailsLayout;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder> {
 
-    private final List<Anime> animeList;
     private final Context context;
 
-    public AnimeAdapter(Context context, List<Anime> animeList) {
+    public AnimeAdapter(Context context) {
         this.context = context;
-        this.animeList = animeList;
     }
 
     @NonNull
@@ -38,7 +34,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
 
     @Override
     public void onBindViewHolder(@NonNull AnimeViewHolder holder, int position) {
-        Anime anime = animeList.get(position);
+        Anime anime = Constants.animes.get(position);
         holder.animeNameTextView.setText(anime.getAnimeName());
         Picasso.get().load(anime.getAnimeThumbnail()).into(holder.animeImageView);
         holder.itemView.setOnClickListener(v -> {
@@ -49,10 +45,10 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
 
     @Override
     public int getItemCount() {
-        return animeList.size();
+        return Constants.animes.size();
     }
 
-    static class AnimeViewHolder extends RecyclerView.ViewHolder {
+    public static class AnimeViewHolder extends RecyclerView.ViewHolder {
         final TextView animeNameTextView;
         final ImageView animeImageView;
 

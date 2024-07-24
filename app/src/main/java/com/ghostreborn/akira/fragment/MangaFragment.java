@@ -36,7 +36,7 @@ public class MangaFragment extends Fragment {
                 Runnable task = () -> {
                     Constants.animes = AllMangaParser.searchManga(mangaSearchView.getQuery().toString());
                     requireActivity().runOnUiThread(() -> {
-                        AnimeAdapter adapter = new AnimeAdapter(getContext(), Constants.animes);
+                        AnimeAdapter adapter = new AnimeAdapter(getContext());
                         mangaRecyclerView.setAdapter(adapter);
                     });
                 };
@@ -54,7 +54,7 @@ public class MangaFragment extends Fragment {
         Runnable task = () -> {
             Constants.animes = AllMangaParser.queryPopular();
             requireActivity().runOnUiThread(() -> {
-                AnimeAdapter adapter = new AnimeAdapter(getContext(), Constants.animes);
+                AnimeAdapter adapter = new AnimeAdapter(getContext());
                 mangaRecyclerView.setAdapter(adapter);
             });
         };

@@ -39,12 +39,7 @@ public class AnimeDetailsLayout extends AppCompatActivity {
             AnimeDetails details = AllAnimeParser.animeDetails(Constants.animeID);
             runOnUiThread(() -> {
 
-                watchFAB.setOnClickListener(v -> {
-                    Intent episodesIntent = new Intent(this, EpisodesActivity.class);
-                    Constants.animeID = details.getAnimeID();
-                    Constants.episodes = details.getEpisodes();
-                    startActivity(episodesIntent);
-                });
+                watchFAB.setOnClickListener(v -> startActivity(new Intent(this, EpisodesActivity.class)));
 
                 Picasso.get().load(details.getAnimeBanner()).into(animeBannerImageView);
                 Picasso.get().load(details.getAnimeImage()).into(animeThumbnailImageView);
@@ -54,9 +49,8 @@ public class AnimeDetailsLayout extends AppCompatActivity {
                 if (!details.getAnimePrequel().isEmpty()){
                     prequelButton.setVisibility(View.VISIBLE);
                     prequelButton.setOnClickListener(v -> {
-                        Intent animeIntent = new Intent(AnimeDetailsLayout.this, AnimeDetailsLayout.class);
-                        animeIntent.putExtra("animeID", details.getAnimePrequel());
-                        startActivity(animeIntent);
+                        Constants.animeID = details.getAnimePrequel();
+                        startActivity(new Intent(AnimeDetailsLayout.this, AnimeDetailsLayout.class));
                         finish();
                     });
                 }
@@ -64,9 +58,8 @@ public class AnimeDetailsLayout extends AppCompatActivity {
                 if (!details.getAnimeSequel().isEmpty()){
                     sequelButton.setVisibility(View.VISIBLE);
                     sequelButton.setOnClickListener(v -> {
-                        Intent animeIntent = new Intent(AnimeDetailsLayout.this, AnimeDetailsLayout.class);
-                        animeIntent.putExtra("animeID", details.getAnimeSequel());
-                        startActivity(animeIntent);
+                        Constants.animeID = details.getAnimeSequel();
+                        startActivity(new Intent(AnimeDetailsLayout.this, AnimeDetailsLayout.class));
                         finish();
                     });
                 }

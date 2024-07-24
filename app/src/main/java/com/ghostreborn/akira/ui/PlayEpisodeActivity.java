@@ -1,6 +1,5 @@
 package com.ghostreborn.akira.ui;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.MediaController;
@@ -8,7 +7,6 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 
 public class PlayEpisodeActivity extends AppCompatActivity {
@@ -19,7 +17,6 @@ public class PlayEpisodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play_episode);
 
         VideoView videoView = findViewById(R.id.anime_video_view);
-        videoView.setVideoURI(Uri.parse(Constants.episodeUrl));
         MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
         videoView.setMediaController(mediaController);
