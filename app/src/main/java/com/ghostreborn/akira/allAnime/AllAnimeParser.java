@@ -88,10 +88,22 @@ public class AllAnimeParser {
                 episodes.add(availableEpisodes.getString(i));
             }
             Constants.episodes = episodes;
+            Constants.groupedEpisodes = groupEpisodes(Constants.episodes);
             Constants.animeDetails = new AnimeDetails(name, thumbnail, description, banner, prequel, sequel);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
         }
+    }
+
+    public static ArrayList<ArrayList<String>> groupEpisodes(ArrayList<String> episodes) {
+        ArrayList<ArrayList<String>> groupedEpisodes = new ArrayList<>();
+        int startIndex = 0;
+        while (startIndex < episodes.size()) {
+            int endIndex = Math.min(startIndex + 15, episodes.size());
+            groupedEpisodes.add(new ArrayList<>(episodes.subList(startIndex, endIndex)));
+            startIndex = endIndex;
+        }
+        return groupedEpisodes;
     }
 
     public static ArrayList<Episode> getEpisodeDetails(String id, ArrayList<Episode> episodes) {
