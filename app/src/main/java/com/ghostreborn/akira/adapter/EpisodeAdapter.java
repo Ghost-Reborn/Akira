@@ -9,16 +9,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
-
-import java.util.ArrayList;
+import com.ghostreborn.akira.model.Episode;
+import com.squareup.picasso.Picasso;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeViewHolder> {
-
-    private final ArrayList<String> episodes;
-    public EpisodeAdapter(ArrayList<String> episodes){
-        this.episodes = episodes;
-    }
 
     @NonNull
     @Override
@@ -30,15 +26,17 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeVie
 
     @Override
     public void onBindViewHolder(@NonNull EpisodeAdapter.AnimeViewHolder holder, int position) {
-        String episode = episodes.get(position);
-        String episodeTitle = "Episode " + episode;
-        holder.episodeNumberTextView.setText(episode);
-        holder.episodeTitleTextView.setText(episodeTitle);
+        Episode episode = Constants.parsedEpisodes.get(position);
+        Picasso.get()
+                .load(episode.getEpisodeThumbnail())
+                .into(holder.animeEpisodeImageView);
+        holder.episodeNumberTextView.setText(episode.getEpisodeNumber());
+        holder.episodeTitleTextView.setText(episode.getEpisodeTitle());
     }
 
     @Override
     public int getItemCount() {
-        return episodes.size();
+        return Constants.parsedEpisodes.size();
     }
 
     public static class AnimeViewHolder extends RecyclerView.ViewHolder {

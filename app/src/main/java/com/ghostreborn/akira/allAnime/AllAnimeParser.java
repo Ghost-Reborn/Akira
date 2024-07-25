@@ -106,20 +106,20 @@ public class AllAnimeParser {
         return groupedEpisodes;
     }
 
-    public static ArrayList<Episode> getEpisodeDetails(String id, ArrayList<Episode> episodes) {
+    public static void getEpisodeDetails(ArrayList<String> episodes) {
         ArrayList<Episode> out = new ArrayList<>();
 
-        for (Episode episode : episodes) {
+        for (int i=0;i< episodes.size(); i++) {
             try {
                 // Fetch the JSON response
-                String episodeDetailsJson = AllAnimeNetwork.episodeDetails(id, episode.getEpisodeNumber());
+                String episodeDetailsJson = AllAnimeNetwork.episodeDetails(Constants.animeID, episodes.get(i));
                 JSONObject jsonResponse = new JSONObject(episodeDetailsJson);
 
                 JSONObject dataObject = jsonResponse.getJSONObject("data");
                 JSONObject episodeObject = dataObject.getJSONObject("episode");
 
                 JSONObject episodeInfo = episodeObject.getJSONObject("episodeInfo");
-                String episodeTitle = episodeInfo.optString("notes", "Episode " + episode.getEpisodeNumber());
+                String episodeTitle = episodeInfo.optString("notes", "Episode " + episodes.get(i));
 
                 String episodeThumbnail = "https://wp.youtube-anime.com/s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg?w=250";
                 JSONArray thumbnails = episodeInfo.optJSONArray("thumbnails");
@@ -131,14 +131,13 @@ public class AllAnimeParser {
                 }
 
                 // Add the new Episode object to the list
-                out.add(new Episode(episode.getEpisodeNumber(), episodeTitle, episodeThumbnail));
+                out.add(new Episode(episodes.get(i), episodeTitle, episodeThumbnail));
             } catch (JSONException e) {
                 Log.e("AllAnimeParser", "Error parsing JSON: ", e);
                 out.add(null);
             }
         }
-
-        return out;
+        Constants.parsedEpisodes = out;
     }
 
     private static ArrayList<String> episodeUrls(String id, String episode) {

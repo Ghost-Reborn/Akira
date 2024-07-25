@@ -1,9 +1,11 @@
 package com.ghostreborn.akira.adapter;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,15 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
+import com.ghostreborn.akira.allAnime.AllAnimeParser;
 
-import java.util.ArrayList;
+import java.util.concurrent.Executors;
 
 public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapter.AnimeViewHolder> {
 
     private final RecyclerView recyclerView;
+    private final Activity activity;
+    private final ProgressBar progressBar;
 
-    public EpisodeGroupAdapter(RecyclerView recyclerView) {
+    public EpisodeGroupAdapter(Activity activity, RecyclerView recyclerView, ProgressBar progressBar) {
+        this.activity = activity;
         this.recyclerView = recyclerView;
+        this.progressBar = progressBar;
     }
 
     @NonNull
@@ -35,9 +42,16 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
         String page = position + 1 + "";
         holder.episodeGroupTextView.setText(page);
         holder.episodeGroupTextView.setOnClickListener(v -> {
-            recyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-            ArrayList<String> episodes = new ArrayList<>(Constants.groupedEpisodes.get(position));
-            recyclerView.setAdapter(new EpisodeAdapter(episodes));
+            progressBar.setVisibility(View.VISIBLE);
+            Executors.newSingleThreadExecutor().execute(() -> {
+                AllAnimeParser.getEpisodeDetails(Constants.groupedEpisodes.get(position));
+                activity.runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                    EpisodeAdapter adapter = new EpisodeAdapter();
+                    recyclerView.setAdapter(adapter);
+                });
+            });
         });
     }
 

@@ -1,6 +1,8 @@
 package com.ghostreborn.akira.ui;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +12,9 @@ import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.adapter.EpisodeAdapter;
 import com.ghostreborn.akira.adapter.EpisodeGroupAdapter;
+import com.ghostreborn.akira.allAnime.AllAnimeParser;
+
+import java.util.concurrent.Executors;
 
 public class EpisodesActivity extends AppCompatActivity {
 
@@ -19,13 +24,21 @@ public class EpisodesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_episodes);
 
         RecyclerView episodesRecycler = findViewById(R.id.episodes_recycler_view);
-        episodesRecycler.setLayoutManager(new LinearLayoutManager(this));
-        EpisodeAdapter adapter = new EpisodeAdapter(Constants.groupedEpisodes.get(0));
-        episodesRecycler.setAdapter(adapter);
-
         RecyclerView episodeGroupRecycler = findViewById(R.id.episode_group_recycler_view);
+        ProgressBar episodeProgress = findViewById(R.id.episode_progress_bar);
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            AllAnimeParser.getEpisodeDetails(Constants.groupedEpisodes.get(0));
+            runOnUiThread(() -> {
+                episodeProgress.setVisibility(View.GONE);
+                episodesRecycler.setLayoutManager(new LinearLayoutManager(this));
+                EpisodeAdapter adapter = new EpisodeAdapter();
+                episodesRecycler.setAdapter(adapter);
+            });
+        });
+
         episodeGroupRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        EpisodeGroupAdapter episodeGroupAdapter = new EpisodeGroupAdapter(episodesRecycler);
+        EpisodeGroupAdapter episodeGroupAdapter = new EpisodeGroupAdapter(this, episodesRecycler, episodeProgress);
         episodeGroupRecycler.setAdapter(episodeGroupAdapter);
 
     }
