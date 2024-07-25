@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.databinding.ActivityAnimeDetailsBinding;
-import com.ghostreborn.akira.model.AnimeDetails;
 import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.Executor;
@@ -30,10 +29,10 @@ public class AnimeDetailsActivity extends AppCompatActivity {
 
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            AnimeDetails details = AllAnimeParser.animeDetails(Constants.animeID);
+            AllAnimeParser.animeDetails(Constants.animeID);
             runOnUiThread(() -> {
 
-                if (details == null) {
+                if (Constants.animeDetails == null) {
                     finish();
                     return;
                 }
@@ -41,26 +40,26 @@ public class AnimeDetailsActivity extends AppCompatActivity {
                 binding.watchFab.setOnClickListener(v -> startActivity(new Intent(this, EpisodesActivity.class)));
 
                 Glide.with(this)
-                        .load(details.getAnimeBanner())
+                        .load(Constants.animeDetails.getAnimeBanner())
                         .transform(new BlurTransformation(10,3))
                         .into(binding.animeBanner);
-                Picasso.get().load(details.getAnimeImage()).into(binding.animeThumbnail);
-                binding.animeName.setText(details.getAnimeName());
-                binding.animeDescription.setText(details.getAnimeDescription());
+                Picasso.get().load(Constants.animeDetails.getAnimeImage()).into(binding.animeThumbnail);
+                binding.animeName.setText(Constants.animeDetails.getAnimeName());
+                binding.animeDescription.setText(Constants.animeDetails.getAnimeDescription());
 
-                if (!details.getAnimePrequel().isEmpty()){
+                if (!Constants.animeDetails.getAnimePrequel().isEmpty()){
                     binding.prequelButton.setVisibility(View.VISIBLE);
                     binding.prequelButton.setOnClickListener(v -> {
-                        Constants.animeID = details.getAnimePrequel();
+                        Constants.animeID = Constants.animeDetails.getAnimePrequel();
                         startActivity(new Intent(AnimeDetailsActivity.this, AnimeDetailsActivity.class));
                         finish();
                     });
                 }
 
-                if (!details.getAnimeSequel().isEmpty()){
+                if (!Constants.animeDetails.getAnimeSequel().isEmpty()){
                     binding.sequelButton.setVisibility(View.VISIBLE);
                     binding.sequelButton.setOnClickListener(v -> {
-                        Constants.animeID = details.getAnimeSequel();
+                        Constants.animeID = Constants.animeDetails.getAnimeSequel();
                         startActivity(new Intent(AnimeDetailsActivity.this, AnimeDetailsActivity.class));
                         finish();
                     });

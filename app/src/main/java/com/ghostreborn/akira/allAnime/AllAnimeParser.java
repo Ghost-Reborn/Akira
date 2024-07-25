@@ -62,7 +62,7 @@ public class AllAnimeParser {
         }
     }
 
-    public static AnimeDetails animeDetails(String id) {
+    public static void animeDetails(String id) {
         try {
             JSONObject show = new JSONObject(AllAnimeNetwork.animeDetails(id))
                     .getJSONObject("data")
@@ -73,7 +73,6 @@ public class AllAnimeParser {
             description = HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
                     .toString();
             String banner = show.getString("banner");
-
             String prequel = "", sequel = "";
             JSONArray relatedShows = show.getJSONArray("relatedShows");
             for (int i = 0; i < relatedShows.length(); i++) {
@@ -88,11 +87,10 @@ public class AllAnimeParser {
             for (int i = availableEpisodes.length() - 1; i >= 0; i--) {
                 episodes.add(availableEpisodes.getString(i));
             }
-
-            return new AnimeDetails(id, name, thumbnail, description, banner, prequel, sequel, episodes);
+            Constants.episodes = episodes;
+            Constants.animeDetails = new AnimeDetails(id, name, thumbnail, description, banner, prequel, sequel);
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
-            return null;
         }
     }
 
