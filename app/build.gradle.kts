@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 
@@ -36,6 +36,11 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+    implementation(libs.glide.transformations)
+
     implementation(libs.picasso)
     implementation(libs.okhttp)
     implementation(libs.appcompat)

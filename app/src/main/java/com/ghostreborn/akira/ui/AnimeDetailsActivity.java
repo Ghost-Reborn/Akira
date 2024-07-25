@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.databinding.ActivityAnimeDetailsBinding;
@@ -14,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class AnimeDetailsActivity extends AppCompatActivity {
 
@@ -30,12 +33,20 @@ public class AnimeDetailsActivity extends AppCompatActivity {
             AnimeDetails details = AllAnimeParser.animeDetails(Constants.animeID);
             runOnUiThread(() -> {
 
+                if (details == null) {
+                    finish();
+                    return;
+                }
+
                 binding.watchFab.setOnClickListener(v -> startActivity(new Intent(this, EpisodesActivity.class)));
 
-                Picasso.get().load(details.getAnimeBanner()).into(binding.animeBannerImageView);
-                Picasso.get().load(details.getAnimeImage()).into(binding.animeThumbnailImageView);
-                binding.animeNameTextView.setText(details.getAnimeName());
-                binding.animeDescriptionTextView.setText(details.getAnimeDescription());
+                Glide.with(this)
+                        .load(details.getAnimeBanner())
+                        .transform(new BlurTransformation(10,3))
+                        .into(binding.animeBanner);
+                Picasso.get().load(details.getAnimeImage()).into(binding.animeThumbnail);
+                binding.animeName.setText(details.getAnimeName());
+                binding.animeDescription.setText(details.getAnimeDescription());
 
                 if (!details.getAnimePrequel().isEmpty()){
                     binding.prequelButton.setVisibility(View.VISIBLE);
