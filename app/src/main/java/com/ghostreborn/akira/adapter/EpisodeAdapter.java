@@ -7,14 +7,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
+import com.ghostreborn.akira.fragment.ServerFragment;
 import com.ghostreborn.akira.model.Episode;
 import com.squareup.picasso.Picasso;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeViewHolder> {
+
+    private final AppCompatActivity activity;
+
+    public EpisodeAdapter(AppCompatActivity activity) {
+        this.activity = activity;
+    }
 
     @NonNull
     @Override
@@ -32,6 +40,10 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeVie
                 .into(holder.animeEpisodeImageView);
         holder.episodeNumberTextView.setText(episode.getEpisodeNumber());
         holder.episodeTitleTextView.setText(episode.getEpisodeTitle());
+        holder.itemView.setOnClickListener(v -> {
+            ServerFragment fragment = new ServerFragment(episode.getEpisodeNumber());
+            fragment.show(activity.getSupportFragmentManager(), "My Dialog");
+        });
     }
 
     @Override

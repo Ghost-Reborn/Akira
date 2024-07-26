@@ -32,7 +32,7 @@ public class EpisodesActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 episodeProgress.setVisibility(View.GONE);
                 episodesRecycler.setLayoutManager(new LinearLayoutManager(this));
-                EpisodeAdapter adapter = new EpisodeAdapter();
+                EpisodeAdapter adapter = new EpisodeAdapter(this);
                 episodesRecycler.setAdapter(adapter);
             });
         });

@@ -1,6 +1,5 @@
 package com.ghostreborn.akira.adapter;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +20,10 @@ import java.util.concurrent.Executors;
 public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapter.AnimeViewHolder> {
 
     private final RecyclerView recyclerView;
-    private final Activity activity;
+    private final AppCompatActivity activity;
     private final ProgressBar progressBar;
 
-    public EpisodeGroupAdapter(Activity activity, RecyclerView recyclerView, ProgressBar progressBar) {
+    public EpisodeGroupAdapter(AppCompatActivity activity, RecyclerView recyclerView, ProgressBar progressBar) {
         this.activity = activity;
         this.recyclerView = recyclerView;
         this.progressBar = progressBar;
@@ -48,7 +48,7 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
                 activity.runOnUiThread(() -> {
                     progressBar.setVisibility(View.GONE);
                     recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-                    EpisodeAdapter adapter = new EpisodeAdapter();
+                    EpisodeAdapter adapter = new EpisodeAdapter(activity);
                     recyclerView.setAdapter(adapter);
                 });
             });
