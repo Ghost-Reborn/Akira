@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 public class Constants {
 
-    public static ArrayList<Anime> animes;
+    public static String episodeUrl;
     public static String animeID;
     public static AnimeDetails animeDetails;
+    public static ArrayList<Anime> animes;
     public static ArrayList<String> episodes;
-    public static ArrayList<ArrayList<String>> groupedEpisodes;
     public static ArrayList<Episode> parsedEpisodes;
+    public static ArrayList<ArrayList<String>> groupedEpisodes;
 
 }
