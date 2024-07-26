@@ -12,14 +12,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO either show episode list without titles from server
-    //  or show everything at a time with a progress bar
-    // TODO show a bottom progress bar that updates with the progress of
-    //  episode getting
-    // TODO rework episode selection screen
-    // TODO show server selection as a popup
     // TODO work on Manga
-    // TODO get first 15 episode details on AnimeDetailsLayout
+    // TODO fix episodes with null as episode title
+    // TODO fix episodes with null as episodeInfo in parsing section
+    // TODO show anime thumbnail if episode thumbnail is not available
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

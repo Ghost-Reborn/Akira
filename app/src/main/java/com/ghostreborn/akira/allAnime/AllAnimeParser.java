@@ -118,10 +118,16 @@ public class AllAnimeParser {
                 JSONObject dataObject = jsonResponse.getJSONObject("data");
                 JSONObject episodeObject = dataObject.getJSONObject("episode");
 
+                String episodeThumbnail = "https://wp.youtube-anime.com/s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg?w=250";
+                Log.e("TAG", episodeDetailsJson);
+                if (episodeObject.isNull("episodeInfo")){
+                    out.add(new Episode(episodes.get(i), "", episodeThumbnail));
+                    continue;
+                }
+
                 JSONObject episodeInfo = episodeObject.getJSONObject("episodeInfo");
                 String episodeTitle = episodeInfo.optString("notes", "Episode " + episodes.get(i));
 
-                String episodeThumbnail = "https://wp.youtube-anime.com/s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg?w=250";
                 JSONArray thumbnails = episodeInfo.optJSONArray("thumbnails");
                 if (thumbnails != null && thumbnails.length() > 0) {
                     String thumbnailUrl = thumbnails.optString(0, "");
