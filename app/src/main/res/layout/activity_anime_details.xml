@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@color/black" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/thumbnail_card_view"
@@ -31,7 +31,7 @@
             android:layout_height="140dp"
             android:contentDescription="@string/anime_thumbnail"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            app:srcCompat="@color/black" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
