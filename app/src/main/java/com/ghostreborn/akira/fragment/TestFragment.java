@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ghostreborn.akira.R;
+import com.ghostreborn.akira.allAnime.AllAnimeParser;
+import com.ghostreborn.akira.anilist.AnilistNetwork;
 
 import java.util.concurrent.Executors;
 
@@ -36,7 +38,11 @@ public class TestFragment extends Fragment {
         super.onResume();
 
         Executors.newSingleThreadExecutor().execute(() -> {
+            String raw = AnilistNetwork.searchAnime("Make Heroine");
+            raw = AllAnimeParser.allAnimeIdWithMalId("Make Heroine", "57524");
+            String finalRaw = raw;
             getActivity().runOnUiThread(() -> {
+                testText.setText(finalRaw);
             });
         });
 

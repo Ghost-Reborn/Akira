@@ -94,7 +94,7 @@ public class AnilistNetwork {
                 "    media(search: \"" + animeName + "\", type: ANIME) {\n" +
                 "      idMal\n" +
                 "      title {\n" +
-                "        native\n" +
+                "        native,english\n" +
                 "      }\n" +
                 "      coverImage{\n" +
                 "        large\n" +
