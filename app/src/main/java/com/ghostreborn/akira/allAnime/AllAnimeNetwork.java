@@ -24,7 +24,7 @@ public class AllAnimeNetwork {
         return rawJson;
     }
 
-    public static String requiredAnimeDetails(String id){
+    public static String animeDetails(String id){
         String variables = "\"showId\":\"" + id + "\"";
         String queryTypes = "$showId:String!";
         String query = "show(_id:$showId){availableEpisodesDetail}";

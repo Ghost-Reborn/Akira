@@ -20,7 +20,7 @@ public class AllAnimeParser {
 
     public static void animeDetails(String id) {
         try {
-            JSONObject show = new JSONObject(AllAnimeNetwork.requiredAnimeDetails(id))
+            JSONObject show = new JSONObject(AllAnimeNetwork.animeDetails(id))
                     .getJSONObject("data")
                     .getJSONObject("show");
             JSONArray availableEpisodes = show.getJSONObject("availableEpisodesDetail").getJSONArray("sub");
