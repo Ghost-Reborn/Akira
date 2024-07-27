@@ -95,6 +95,22 @@ public class AllAnimeParser {
         }
     }
 
+    public static void requiredAnimeDetails(String id) {
+        try {
+            JSONObject show = new JSONObject(AllAnimeNetwork.animeDetails(id))
+                    .getJSONObject("data")
+                    .getJSONObject("show");
+            JSONArray availableEpisodes = show.getJSONObject("availableEpisodesDetail").getJSONArray("sub");
+            ArrayList<String> episodes = new ArrayList<>();
+            for (int i = availableEpisodes.length() - 1; i >= 0; i--) {
+                episodes.add(availableEpisodes.getString(i));
+            }
+            Constants.groupedEpisodes = groupEpisodes(episodes);
+        } catch (JSONException e) {
+            Log.e("AllAnimeParser", "Error parsing JSON: ", e);
+        }
+    }
+
     public static ArrayList<ArrayList<String>> groupEpisodes(ArrayList<String> episodes) {
         ArrayList<ArrayList<String>> groupedEpisodes = new ArrayList<>();
         int startIndex = 0;
