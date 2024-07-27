@@ -19,6 +19,7 @@ public class Constants {
 
     public static String episodeUrl;
     public static String animeID;
+    public static String animeMalId;
     public static String allAnimeID;
     public static String animeProgress;
     public static String animeMediaListEntryID;
