@@ -40,7 +40,7 @@ public class AnimeDetailsActivity extends AppCompatActivity {
 
                 binding.watchFab.setOnClickListener(v -> {
                     Executors.newSingleThreadExecutor().execute(() -> {
-                        Constants.allAnimeID = AllAnimeParser.allAnimeIdWithMalId("One Piece", "21");
+                        Constants.allAnimeID = AllAnimeParser.allAnimeIdWithMalId(Constants.animeDetails.getAnimeName(), Constants.animeID);
                         AllAnimeParser.animeDetails(Constants.allAnimeID);
                         runOnUiThread(() -> {
                             startActivity(new Intent(this, EpisodesActivity.class));
