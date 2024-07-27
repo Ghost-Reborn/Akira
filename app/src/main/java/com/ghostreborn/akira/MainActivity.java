@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO show anime thumbnail if episode thumbnail is not available
     // TODO use anilist to save progress of anime
     // TODO get progress of anime if anime is searched
+    // TODO get medialistentry of anime and use it to delete anime from list
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.home_fragment_container, new TestFragment())
+                .replace(R.id.home_fragment_container, new HomeFragment())
                 .commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

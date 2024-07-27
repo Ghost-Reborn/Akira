@@ -40,6 +40,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         holder.itemView.setOnClickListener(v -> {
             Constants.animeID = anime.getAnimeID();
             Constants.animeProgress = anime.getProgress();
+            Constants.animeMediaListEntryID = anime.getMediaListEntryId();
             context.startActivity(new Intent(context, AnimeDetailsActivity.class));
         });
     }

@@ -46,6 +46,7 @@ public class AnilistNetwork {
                 "  MediaListCollection(userId:" + Constants.userID + ",type:" + type + ",status:" + status + "){\n" +
                 "    lists{\n" +
                 "      entries {\n" +
+                "        id\n" +
                 "        media{ \n" +
                 "          idMal\n" +
                 "          title {\n" +
@@ -114,6 +115,17 @@ public class AnilistNetwork {
                 "    id\n" +
                 "    status\n" +
                 "    progress\n" +
+                "  }\n" +
+                "}";
+        return connectAnilist(graph);
+    }
+
+    public static String deleteAnime(String mediaListEntryId) {
+        String graph = "mutation {\n" +
+                "  DeleteMediaListEntry(\n" +
+                "    id: " + mediaListEntryId + "\n" +
+                "  ) {\n" +
+                "    deleted\n" +
                 "  }\n" +
                 "}";
         return connectAnilist(graph);

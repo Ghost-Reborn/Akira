@@ -60,6 +60,15 @@ public class AnimeDetailsActivity extends AppCompatActivity {
                     });
                 });
 
+                binding.animeProgressDeleteButton.setOnClickListener(v -> {
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        AnilistNetwork.deleteAnime(Constants.animeMediaListEntryID);
+                        runOnUiThread(() -> {
+                            Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+                        });
+                    });
+                });
+
                 Glide.with(this)
                         .load(Constants.animeDetails.getAnimeBanner())
                         .transform(new BlurTransformation(4,3))
