@@ -3,12 +3,14 @@ package com.ghostreborn.akira.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.allAnime.AllAnimeParser;
+import com.ghostreborn.akira.anilist.AnilistNetwork;
 import com.ghostreborn.akira.anilist.AnilistParser;
 import com.ghostreborn.akira.databinding.ActivityAnimeDetailsBinding;
 import com.squareup.picasso.Picasso;
@@ -44,6 +46,16 @@ public class AnimeDetailsActivity extends AppCompatActivity {
                         AllAnimeParser.animeDetails(Constants.allAnimeID);
                         runOnUiThread(() -> {
                             startActivity(new Intent(this, EpisodesActivity.class));
+                        });
+                    });
+                });
+
+                binding.animeProgressEditText.setText(Constants.animeProgress);
+                binding.animeProgressAddButton.setOnClickListener(v -> {
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        AnilistNetwork.saveAnimeProgress(Constants.animeID, binding.animeProgressEditText.getText().toString());
+                        runOnUiThread(() -> {
+                            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
                         });
                     });
                 });

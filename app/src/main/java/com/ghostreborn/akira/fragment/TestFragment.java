@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.ghostreborn.akira.R;
-import com.ghostreborn.akira.anilist.AnilistNetwork;
 
 import java.util.concurrent.Executors;
 
@@ -30,9 +29,8 @@ public class TestFragment extends Fragment {
         super.onResume();
 
         Executors.newSingleThreadExecutor().execute(() -> {
-            String out = AnilistNetwork.saveAnimeProgress("21", "1024");
             getActivity().runOnUiThread(() -> {
-                testText.setText(out);
+                testText.setText("out");
             });
         });
 

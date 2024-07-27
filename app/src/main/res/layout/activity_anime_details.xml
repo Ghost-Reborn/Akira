@@ -55,7 +55,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/anime_name"
         app:layout_constraintStart_toStartOf="@+id/thumbnail_card_view"
-        app:layout_constraintTop_toBottomOf="@+id/thumbnail_card_view" />
+        app:layout_constraintTop_toBottomOf="@+id/anime_progress_edit_text" />
 
     <Button
         android:id="@+id/prequel_button"
@@ -108,8 +108,30 @@
         android:id="@+id/anime_progress_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/anime_name"
         app:layout_constraintTop_toBottomOf="@+id/anime_name" />
+
+    <EditText
+        android:id="@+id/anime_progress_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="4"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/anime_progress_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/anime_progress_text_view" />
+
+    <Button
+        android:id="@+id/anime_progress_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/black"
+        android:padding="12dp"
+        android:text="@string/add"
+        android:textColor="@android:color/white"
+        app:cornerRadius="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/anime_progress_edit_text"
+        app:layout_constraintStart_toEndOf="@+id/anime_progress_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/anime_progress_edit_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
