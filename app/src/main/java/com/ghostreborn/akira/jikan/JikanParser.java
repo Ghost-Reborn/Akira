@@ -1,6 +1,16 @@
 package com.ghostreborn.akira.jikan;
 
+import android.util.Log;
+
+import com.ghostreborn.akira.Constants;
+import com.ghostreborn.akira.model.Anime;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,9 +34,44 @@ public class JikanParser {
         return rawJson;
     }
 
-    public static String getTopAnime(){
-        String path = "top/anime";
-        return getJSON(path);
+    public static void getTopAnime() {
+        Constants.animes = new ArrayList<>();
+        String path = "top/anime?limit=24";
+        try {
+            JSONArray dataArray = new JSONObject(getJSON(path))
+                    .getJSONArray("data");
+            for (int i = 0; i < dataArray.length(); i++) {
+                JSONObject dataObject = dataArray.getJSONObject(i);
+                String malID = dataObject.getString("mal_id");
+                String title = dataObject.getString("title_english");
+                String thumbnail = dataObject.getJSONObject("images")
+                        .getJSONObject("jpg")
+                        .getString("image_url");
+                Constants.animes.add(new Anime(malID, title, thumbnail));
+            }
+        } catch (JSONException e) {
+            Log.e("TAG", "Error parsing JSON: ", e);
+        }
+    }
+
+    public static void searchAnime(String anime) {
+        Constants.animes = new ArrayList<>();
+        String path = "anime?q=" + anime + "&sfw?limit=24";
+        try {
+            JSONArray dataArray = new JSONObject(getJSON(path))
+                    .getJSONArray("data");
+            for (int i = 0; i < dataArray.length(); i++) {
+                JSONObject dataObject = dataArray.getJSONObject(i);
+                String malID = dataObject.getString("mal_id");
+                String title = dataObject.getString("title_english");
+                String thumbnail = dataObject.getJSONObject("images")
+                        .getJSONObject("jpg")
+                        .getString("image_url");
+                Constants.animes.add(new Anime(malID, title, thumbnail));
+            }
+        } catch (JSONException e) {
+            Log.e("TAG", "Error parsing JSON: ", e);
+        }
     }
 
 }

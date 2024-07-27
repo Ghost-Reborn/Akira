@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.adapter.AnimeAdapter;
-import com.ghostreborn.akira.allAnime.AllAnimeParser;
+import com.ghostreborn.akira.jikan.JikanParser;
 
 import java.util.concurrent.Executors;
 
@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Executors.newSingleThreadExecutor().execute(()->{
-                    AllAnimeParser.searchAnime(animeSearchView.getQuery().toString());
+                    JikanParser.searchAnime(animeSearchView.getQuery().toString());
                     requireActivity().runOnUiThread(() -> animeRecyclerView.setAdapter(new AnimeAdapter(getContext())));
                 });
                 return true;
@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
 
     private void queryPopular(RecyclerView animeRecyclerView){
         Executors.newSingleThreadExecutor().execute(()->{
-            AllAnimeParser.queryPopular();
+            JikanParser.getTopAnime();
             requireActivity().runOnUiThread(() -> animeRecyclerView.setAdapter(new AnimeAdapter(getContext())));
         });
     }

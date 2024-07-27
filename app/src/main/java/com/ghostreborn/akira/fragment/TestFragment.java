@@ -24,8 +24,8 @@ public class TestFragment extends Fragment {
         TextView testText = view.findViewById(R.id.test_text);
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            String out = JikanParser.getTopAnime();
-            requireActivity().runOnUiThread(() -> testText.setText(out));
+            JikanParser.getTopAnime();
+            requireActivity().runOnUiThread(() -> testText.setText("Done"));
         };
         executor.execute(task);
 
