@@ -12,6 +12,10 @@ public class Constants {
     public static final String akiraLoggedIn = "AkiraLoggedIn";
     public static final String akiraToken = "AkiraToken";
     public static final String akiraUserId = "AkiraUserId";
+
+    public static String userID = "";
+    public static String userToken = "";
+
     public static String episodeUrl;
     public static String animeID;
     public static AnimeDetails animeDetails;

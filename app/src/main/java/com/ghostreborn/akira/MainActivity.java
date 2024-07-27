@@ -1,5 +1,6 @@
 package com.ghostreborn.akira;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,5 +47,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        setData();
+
     }
+
+    private void setData(){
+        SharedPreferences preferences = getSharedPreferences(Constants.sharedPreference, MODE_PRIVATE);
+        Constants.userID = preferences.getString(Constants.akiraUserId, "");
+        Constants.userToken = preferences.getString(Constants.akiraToken, "");
+    }
+
 }

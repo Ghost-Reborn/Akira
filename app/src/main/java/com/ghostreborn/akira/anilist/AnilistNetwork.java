@@ -2,6 +2,8 @@ package com.ghostreborn.akira.anilist;
 
 import android.util.Log;
 
+import com.ghostreborn.akira.Constants;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -14,7 +16,7 @@ import okhttp3.Response;
 
 public class AnilistNetwork {
 
-    private static String connectAnilist(String token, String qraph) {
+    private static String connectAnilist(String qraph) {
         OkHttpClient client = new OkHttpClient();
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -29,7 +31,7 @@ public class AnilistNetwork {
         Request request = new Request.Builder()
                 .url("https://graphql.anilist.co")
                 .post(body)
-                .addHeader("Authorization", "Bearer " + token)
+                .addHeader("Authorization", "Bearer " + Constants.userToken)
                 .build();
         try (Response response = client.newCall(request).execute()) {
             return response.body().string();
@@ -39,9 +41,9 @@ public class AnilistNetwork {
         return "{}";
     }
 
-    public static String animeList(String token, String userId, String type, String status) {
+    public static String animeList(String type, String status) {
         String graph = "query{\n" +
-                "  MediaListCollection(userId:" + userId + ",type:" + type + ",status:" + status + "){\n" +
+                "  MediaListCollection(userId:" + Constants.userID + ",type:" + type + ",status:" + status + "){\n" +
                 "    lists{\n" +
                 "      entries {\n" +
                 "        media{ \n" +
@@ -57,7 +59,7 @@ public class AnilistNetwork {
                 "    }\n" +
                 "  }\n" +
                 "}";
-        return connectAnilist(token, graph);
+        return connectAnilist(graph);
     }
 
 }

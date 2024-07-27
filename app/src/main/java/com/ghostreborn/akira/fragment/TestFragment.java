@@ -30,6 +30,7 @@ public class TestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        preferences = getActivity().getSharedPreferences(Constants.sharedPreference, Context.MODE_PRIVATE);
         View view = inflater.inflate(R.layout.fragment_test, container, false);
         testText = view.findViewById(R.id.test_text);
         return view;
@@ -38,14 +39,11 @@ public class TestFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        preferences = getActivity().getSharedPreferences(Constants.sharedPreference, Context.MODE_PRIVATE);
         checkLoggedIn();
         parseAccessToken();
         if (checkLoggedIn()){
             Executors.newSingleThreadExecutor().execute(() -> {
                 String out = AnilistNetwork.animeList(
-                        preferences.getString(Constants.akiraToken, ""),
-                        preferences.getString(Constants.akiraUserId, ""),
                         AnilistConstants.TYPE_ANIME,
                         AnilistConstants.STATUS_CURRENT
                 );

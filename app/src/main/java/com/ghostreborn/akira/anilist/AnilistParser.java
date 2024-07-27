@@ -15,7 +15,7 @@ public class AnilistParser {
 
     public static void animeList(String token, String userId, String type, String status) {
         Constants.animes = new ArrayList<>();
-        String rawJSON = AnilistNetwork.animeList(token, userId, type, status);
+        String rawJSON = AnilistNetwork.animeList(type, status);
         try {
             JSONArray entries = new JSONObject(rawJSON)
                     .getJSONObject("data")
