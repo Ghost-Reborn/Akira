@@ -17,9 +17,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO fix episodes with null as episode title
     // TODO fix episodes with null as episodeInfo in parsing section
     // TODO show anime thumbnail if episode thumbnail is not available
-    // TODO use anilist to save progress of anime
-    // TODO get progress of anime if anime is searched
-    // TODO get medialistentry of anime and use it to delete anime from list
+    // TODO show more categories of anime like current, planning, completed, dropped, paused, repeating
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
