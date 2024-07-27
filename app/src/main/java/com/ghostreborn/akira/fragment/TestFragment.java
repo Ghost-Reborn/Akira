@@ -43,6 +43,10 @@ public class TestFragment extends Fragment {
         if(!isLoggedIn){
             String queryUrl = "https://anilist.co/api/v2/oauth/authorize?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&response_type=code";
             startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(queryUrl)));
+        }else {
+            Executors.newSingleThreadExecutor().execute(() -> {
+                AnilistParser.getUserNameAndId(preferences.getString(Constants.akiraToken, ""));
+            });
         }
     }
 
