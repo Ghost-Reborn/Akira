@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class AnilistParser {
 
-    public static void animeList(String token, String userId, String type, String status) {
+    public static void animeList(String type, String status) {
         Constants.animes = new ArrayList<>();
         String rawJSON = AnilistNetwork.animeList(type, status);
         try {
