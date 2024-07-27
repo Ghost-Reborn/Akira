@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.ghostreborn.akira.R;
-import com.ghostreborn.akira.jikan.JikanParser;
+import com.ghostreborn.akira.allAnime.AllAnimeNetwork;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -24,8 +24,8 @@ public class TestFragment extends Fragment {
         TextView testText = view.findViewById(R.id.test_text);
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            JikanParser.getTopAnime();
-            requireActivity().runOnUiThread(() -> testText.setText("Done"));
+            String out = AllAnimeNetwork.allAnimeIdWithMalID("ReooPAxPMsHM4KPMY");
+            requireActivity().runOnUiThread(() -> testText.setText(out));
         };
         executor.execute(task);
 

@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     // TODO show "Episode 101" like title above server returned title
     //  with different color and font
     // TODO show whether episode is filler or not when possible
+    // TODO create a database to query whether malId exists
+    // TODO database contains links to malId and AllAnimeID
+    // TODO if not MalID exists, show list using AllAnime API and link AllAnimeID to malID
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

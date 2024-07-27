@@ -64,4 +64,11 @@ public class AllAnimeNetwork {
         return connectAllAnime(variables, queryTypes, query);
     }
 
+    public static String allAnimeIdWithMalID(String malID) {
+        String variables = "\"showId\":\"" + malID + "\"";
+        String queryTypes = "$showId:String!";
+        String query = "show(malId:$showId){name,englishName,thumbnail,description,banner,relatedShows,availableEpisodesDetail}";
+        return connectAllAnime(variables, queryTypes, query);
+    }
+
 }
