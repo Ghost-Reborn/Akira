@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.ghostreborn.akira.Constants;
+import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.anilist.AnilistParser;
 import com.ghostreborn.akira.databinding.ActivityAnimeDetailsBinding;
 import com.squareup.picasso.Picasso;
@@ -37,15 +38,14 @@ public class AnimeDetailsActivity extends AppCompatActivity {
                     return;
                 }
 
-                // TODO here
                 binding.watchFab.setOnClickListener(v -> {
                     Executors.newSingleThreadExecutor().execute(() -> {
-
+                        Constants.allAnimeID = AllAnimeParser.allAnimeIdWithMalId("One Piece", "21");
+                        AllAnimeParser.animeDetails(Constants.allAnimeID);
                         runOnUiThread(() -> {
-
+                            startActivity(new Intent(this, EpisodesActivity.class));
                         });
                     });
-                    startActivity(new Intent(this, EpisodesActivity.class));
                 });
 
                 Glide.with(this)

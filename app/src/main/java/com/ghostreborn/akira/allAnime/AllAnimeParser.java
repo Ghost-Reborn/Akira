@@ -112,7 +112,7 @@ public class AllAnimeParser {
         for (int i=0;i< episodes.size(); i++) {
             try {
                 // Fetch the JSON response
-                String episodeDetailsJson = AllAnimeNetwork.episodeDetails(Constants.animeID, episodes.get(i));
+                String episodeDetailsJson = AllAnimeNetwork.episodeDetails(Constants.allAnimeID, episodes.get(i));
                 JSONObject jsonResponse = new JSONObject(episodeDetailsJson);
 
                 JSONObject dataObject = jsonResponse.getJSONObject("data");
