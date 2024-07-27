@@ -5,89 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/anime_banner"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:contentDescription="@string/anime_banner"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/black" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/thumbnail_card_view"
-        android:layout_width="80dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/anime_banner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_banner">
-
-        <ImageView
-            android:id="@+id/anime_thumbnail"
-            android:layout_width="80dp"
-            android:layout_height="140dp"
-            android:contentDescription="@string/anime_thumbnail"
-            android:scaleType="centerCrop"
-            app:srcCompat="@color/black" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/anime_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/thumbnail_card_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/thumbnail_card_view"
-        app:layout_constraintTop_toTopOf="@+id/thumbnail_card_view" />
-
-    <TextView
-        android:id="@+id/anime_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/anime_name"
-        app:layout_constraintStart_toStartOf="@+id/thumbnail_card_view"
-        app:layout_constraintTop_toBottomOf="@+id/anime_progress_add_button" />
-
-    <Button
-        android:id="@+id/prequel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        android:padding="12dp"
-        android:text="@string/prequel"
-        android:textColor="@android:color/white"
-        android:visibility="gone"
-        app:cornerRadius="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/sequel_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anime_description"
-        tools:visibility="visible" />
-
-    <Button
-        android:id="@+id/sequel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        android:padding="12dp"
-        android:text="@string/sequel"
-        android:textColor="@android:color/white"
-        android:visibility="gone"
-        app:cornerRadius="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/prequel_button"
-        app:layout_constraintTop_toBottomOf="@+id/anime_description"
-        tools:visibility="visible" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/watch_fab"
         android:layout_width="wrap_content"
@@ -103,56 +20,161 @@
         app:srcCompat="@drawable/play_button_arrowhead"
         app:tint="#545454" />
 
-    <TextView
-        android:id="@+id/anime_progress_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/anime_name"
-        app:layout_constraintTop_toBottomOf="@+id/anime_name" />
-
-    <EditText
-        android:id="@+id/anime_progress_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="4"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="@+id/anime_progress_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/anime_progress_text_view" />
-
-    <Button
-        android:id="@+id/anime_progress_add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:backgroundTint="@color/black"
-        android:padding="12dp"
-        android:text="@string/add"
-        android:textColor="@android:color/white"
-        app:cornerRadius="24dp"
-        app:layout_constraintStart_toEndOf="@+id/anime_progress_edit_text"
-        app:layout_constraintTop_toBottomOf="@+id/anime_progress_edit_text" />
-
-    <Button
-        android:id="@+id/anime_progress_delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/black"
-        android:padding="12dp"
-        android:text="@string/delete"
-        android:textColor="@android:color/white"
-        app:cornerRadius="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/anime_progress_add_button"
-        app:layout_constraintStart_toEndOf="@+id/anime_progress_add_button"
-        app:layout_constraintTop_toTopOf="@+id/anime_progress_add_button" />
-
-    <Spinner
-        android:id="@+id/anime_status_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/anime_progress_edit_text"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anime_progress_edit_text"
-        app:layout_constraintTop_toTopOf="@+id/anime_progress_edit_text" />
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/anime_banner"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:contentDescription="@string/anime_banner"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@color/black" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/thumbnail_card_view"
+                android:layout_width="80dp"
+                android:layout_height="140dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/anime_banner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/anime_banner">
+
+                <ImageView
+                    android:id="@+id/anime_thumbnail"
+                    android:layout_width="80dp"
+                    android:layout_height="140dp"
+                    android:contentDescription="@string/anime_thumbnail"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@color/black" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/anime_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/thumbnail_card_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/thumbnail_card_view"
+                app:layout_constraintTop_toTopOf="@+id/thumbnail_card_view" />
+
+            <Spinner
+                android:id="@+id/anime_status_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/anime_progress_edit_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/anime_progress_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/anime_progress_edit_text" />
+
+            <TextView
+                android:id="@+id/anime_progress_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/anime_name"
+                app:layout_constraintTop_toBottomOf="@+id/anime_name" />
+
+            <EditText
+                android:id="@+id/anime_progress_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:inputType="text"
+                app:layout_constraintStart_toStartOf="@+id/anime_progress_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/anime_progress_text_view" />
+
+            <Button
+                android:id="@+id/anime_progress_add_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/black"
+                android:padding="12dp"
+                android:text="@string/add"
+                android:textColor="@android:color/white"
+                app:cornerRadius="24dp"
+                app:layout_constraintEnd_toStartOf="@+id/anime_progress_delete_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/anime_progress_edit_text" />
+
+            <Button
+                android:id="@+id/anime_progress_delete_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/black"
+                android:padding="12dp"
+                android:text="@string/delete"
+                android:textColor="@android:color/white"
+                app:cornerRadius="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/anime_progress_add_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/anime_progress_add_button"
+                app:layout_constraintTop_toTopOf="@+id/anime_progress_add_button" />
+
+            <TextView
+                android:id="@+id/anime_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/anime_name"
+                app:layout_constraintStart_toStartOf="@+id/thumbnail_card_view"
+                app:layout_constraintTop_toBottomOf="@+id/anime_progress_add_button" />
+
+            <Button
+                android:id="@+id/prequel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/black"
+                android:padding="12dp"
+                android:text="@string/prequel"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                app:cornerRadius="24dp"
+                app:layout_constraintEnd_toStartOf="@+id/sequel_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/anime_description"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/sequel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/black"
+                android:padding="12dp"
+                android:text="@string/sequel"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                app:cornerRadius="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/prequel_button"
+                app:layout_constraintTop_toBottomOf="@+id/anime_description"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
