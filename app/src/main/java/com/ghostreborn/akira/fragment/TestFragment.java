@@ -24,11 +24,10 @@ public class TestFragment extends Fragment {
         TextView testText = view.findViewById(R.id.test_text);
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable task = () -> {
-            String out = AllAnimeNetwork.allAnimeIdWithMalID("ReooPAxPMsHM4KPMY");
+            String out = AllAnimeNetwork.allAnimeIdWithMalID("One Piece", "21");
             requireActivity().runOnUiThread(() -> testText.setText(out));
         };
         executor.execute(task);
-
 
         return view;
     }

@@ -64,10 +64,10 @@ public class AllAnimeNetwork {
         return connectAllAnime(variables, queryTypes, query);
     }
 
-    public static String allAnimeIdWithMalID(String malID) {
-        String variables = "\"showId\":\"" + malID + "\"";
-        String queryTypes = "$showId:String!";
-        String query = "show(malId:$showId){name,englishName,thumbnail,description,banner,relatedShows,availableEpisodesDetail}";
+    public static String allAnimeIdWithMalID(String anime,String malID) {
+        String variables = "\"search\":{\"allowAdult\":false,\"allowUnknown\":false,\"query\":\"" + anime + "\"},\"limit\":39,\"page\":1,\"translationType\":\"sub\",\"countryOrigin\":\"ALL\"";
+        String queryTypes = "$search:SearchInput,$limit:Int,$page:Int,$translationType:VaildTranslationTypeEnumType,$countryOrigin:VaildCountryOriginEnumType";
+        String query = "shows(search:$search,limit:$limit,page:$page,translationType:$translationType,countryOrigin:$countryOrigin){edges{_id,malId}}";
         return connectAllAnime(variables, queryTypes, query);
     }
 
