@@ -29,9 +29,6 @@ public class TestFragment extends Fragment {
         };
         executor.execute(task);
 
-        ServerFragment fragment = new ServerFragment("1");
-        fragment.show(getActivity().getSupportFragmentManager(), "My Dialog");
-
         return view;
     }
 }
