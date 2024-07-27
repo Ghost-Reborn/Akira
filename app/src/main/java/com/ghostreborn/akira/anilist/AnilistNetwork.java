@@ -55,6 +55,7 @@ public class AnilistNetwork {
                 "            medium\n" +
                 "          }\n" +
                 "        }\n" +
+                "        progress\n" +
                 "      }\n" +
                 "    }\n" +
                 "  }\n" +
@@ -62,4 +63,28 @@ public class AnilistNetwork {
         return connectAnilist(graph);
     }
 
-}
+    public static String animeDetails(String malId) {
+        String graph = "query{\n" +
+                "  Media(idMal:" + malId + "){\n " +
+            "    title{english}\n" +
+                    "    coverImage{medium}\n" +
+                    "    description\n" +
+                    "    bannerImage\n" +
+                    "    relations {\n" +
+                    "    \n" +
+                    "      edges{\n" +
+                    "        node{\n" +
+                    "          idMal\n" +
+                    "          title {\n" +
+                    "            english\n" +
+                    "          }\n" +
+                    "        }\n" +
+                    "        relationType\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "}";
+        return connectAnilist(graph);
+        }
+
+    }

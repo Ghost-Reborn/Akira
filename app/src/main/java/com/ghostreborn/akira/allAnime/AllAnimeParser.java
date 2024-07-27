@@ -35,7 +35,7 @@ public class AllAnimeParser {
                 String id = anime.getString("_id");
                 String name = anime.getString("englishName");
                 name = "null".equals(name) ? anime.getString("name") : name;
-                Constants.animes.add(new Anime(id, name, anime.getString("thumbnail")));
+                Constants.animes.add(new Anime(id, name, anime.getString("thumbnail") ,"0"));
             }
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
@@ -55,7 +55,7 @@ public class AllAnimeParser {
                 String id = anime.getString("_id");
                 String name = anime.getString("englishName");
                 if ("null".equals(name)) name = anime.getString("name");
-                Constants.animes.add(new Anime(id, name, anime.getString("thumbnail")));
+                Constants.animes.add(new Anime(id, name, anime.getString("thumbnail"), "0"));
             }
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);

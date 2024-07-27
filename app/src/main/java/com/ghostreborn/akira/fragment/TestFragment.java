@@ -12,10 +12,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.ghostreborn.akira.AnilistConstants;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
-import com.ghostreborn.akira.anilist.AnilistNetwork;
+import com.ghostreborn.akira.anilist.AnilistParser;
 import com.ghostreborn.akira.anilist.AnilistUtils;
 
 import java.util.concurrent.Executors;
@@ -43,12 +42,9 @@ public class TestFragment extends Fragment {
         parseAccessToken();
         if (checkLoggedIn()){
             Executors.newSingleThreadExecutor().execute(() -> {
-                String out = AnilistNetwork.animeList(
-                        AnilistConstants.TYPE_ANIME,
-                        AnilistConstants.STATUS_CURRENT
-                );
+                AnilistParser.animeDetails("21");
                 getActivity().runOnUiThread(() -> {
-                    testText.setText(out);
+                    testText.setText("out");
                 });
             });
         }

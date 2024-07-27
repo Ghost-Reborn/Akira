@@ -26,7 +26,7 @@ public class AllMangaParser {
                 String name = anime.optString("englishName", anime.optString("name"));
                 name = "null".equals(name) ? anime.getString("name") : name;
                 String thumbnail = "https://wp.youtube-anime.com/aln.youtube-anime.com/" + anime.getString("thumbnail");
-                animes.add(new Anime(id, name, thumbnail));
+                animes.add(new Anime(id, name, thumbnail, "0"));
             }
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
@@ -47,7 +47,7 @@ public class AllMangaParser {
                 String id = anime.getString("_id");
                 String name = anime.optString("englishName", anime.getString("name"));
                 if ("null".equals(name)) name = anime.getString("name");
-                animes.add(new Anime(id, name, anime.getString("thumbnail")));
+                animes.add(new Anime(id, name, anime.getString("thumbnail"), ""));
             }
         } catch (JSONException e) {
             Log.e("AllAnimeParser", "Error parsing JSON: ", e);
