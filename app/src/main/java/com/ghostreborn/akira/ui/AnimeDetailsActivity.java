@@ -41,7 +41,7 @@ public class AnimeDetailsActivity extends AppCompatActivity {
 
                 Glide.with(this)
                         .load(Constants.animeDetails.getAnimeBanner())
-                        .transform(new BlurTransformation(10,3))
+                        .transform(new BlurTransformation(4,3))
                         .into(binding.animeBanner);
                 Picasso.get().load(Constants.animeDetails.getAnimeImage()).into(binding.animeThumbnail);
                 binding.animeName.setText(Constants.animeDetails.getAnimeName());

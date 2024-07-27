@@ -73,6 +73,7 @@ public class AllAnimeParser {
             description = HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
                     .toString();
             String banner = show.getString("banner");
+            Log.e("TAG", banner);
             String prequel = "", sequel = "";
             JSONArray relatedShows = show.getJSONArray("relatedShows");
             for (int i = 0; i < relatedShows.length(); i++) {
