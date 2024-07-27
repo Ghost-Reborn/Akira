@@ -56,6 +56,9 @@ public class AnimeDetailsActivity extends AppCompatActivity {
                 binding.animeName.setText(Constants.animeDetails.getAnimeName());
                 binding.animeDescription.setText(Constants.animeDetails.getAnimeDescription());
 
+                String animeProgress = "Watched " + Constants.animeProgress + " Episodes";
+                binding.animeProgressTextView.setText(animeProgress);
+
                 if (!Constants.animeDetails.getAnimePrequel().isEmpty()){
                     binding.prequelButton.setVisibility(View.VISIBLE);
                     binding.prequelButton.setOnClickListener(v -> {

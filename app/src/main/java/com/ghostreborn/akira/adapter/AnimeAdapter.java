@@ -39,6 +39,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         Picasso.get().load(anime.getAnimeThumbnail()).into(holder.animeImageView);
         holder.itemView.setOnClickListener(v -> {
             Constants.animeID = anime.getAnimeID();
+            Constants.animeProgress = anime.getProgress();
             context.startActivity(new Intent(context, AnimeDetailsActivity.class));
         });
     }

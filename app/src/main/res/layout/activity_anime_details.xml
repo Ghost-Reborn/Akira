@@ -104,4 +104,12 @@
         app:srcCompat="@drawable/play_button_arrowhead"
         app:tint="#545454" />
 
+    <TextView
+        android:id="@+id/anime_progress_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/anime_name"
+        app:layout_constraintTop_toBottomOf="@+id/anime_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

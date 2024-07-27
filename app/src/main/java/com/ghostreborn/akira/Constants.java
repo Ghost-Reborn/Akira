@@ -19,6 +19,7 @@ public class Constants {
     public static String episodeUrl;
     public static String animeID;
     public static String allAnimeID;
+    public static String animeProgress;
     public static AnimeDetails animeDetails;
     public static ArrayList<Anime> animes;
     public static ArrayList<Episode> parsedEpisodes;
