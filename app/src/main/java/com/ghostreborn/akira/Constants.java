@@ -11,6 +11,7 @@ public class Constants {
     public static final String sharedPreference = "Akira";
     public static final String akiraLoggedIn = "AkiraLoggedIn";
     public static final String akiraToken = "AkiraToken";
+    public static final String akiraUserId = "AkiraUserId";
     public static String episodeUrl;
     public static String animeID;
     public static AnimeDetails animeDetails;

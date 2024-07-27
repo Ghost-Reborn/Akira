@@ -49,18 +49,19 @@ public class AnilistParser {
 
         try (Response response = client.newCall(request).execute()) {
             String accessToken = new JSONObject(response.body().string())
-                    .getString("access_token");;
+                    .getString("access_token");
             SharedPreferences preferences = activity.getSharedPreferences(Constants.sharedPreference, Context.MODE_PRIVATE);
             preferences.edit()
                     .putBoolean(Constants.akiraLoggedIn, true)
                     .putString(Constants.akiraToken, accessToken)
                     .apply();
+            getUserNameAndId(accessToken,activity);
         } catch (IOException | JSONException e) {
             Log.e("TAG", "Error: ", e);
         }
     }
 
-    public static void getUserNameAndId(String token){
+    private static void getUserNameAndId(String token,Activity activity) {
         OkHttpClient client = new OkHttpClient();
         String query = "{\n" +
                 "  Viewer {\n" +
@@ -90,7 +91,11 @@ public class AnilistParser {
                 JSONObject data = jsonResponse.getJSONObject("data");
                 JSONObject viewer = data.getJSONObject("Viewer");
                 String id = viewer.getString("id");
-                String name = viewer.getString("name");
+                SharedPreferences preferences = activity.getSharedPreferences(Constants.sharedPreference, Context.MODE_PRIVATE);
+                preferences.edit()
+                        .putString(Constants.akiraUserId, id)
+                        .apply();
+                Log.e("TAG", "User ID: " + id);
             } catch (Exception e) {
                 e.printStackTrace();
             }
