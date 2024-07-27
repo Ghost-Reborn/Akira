@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.model.Anime;
+import com.ghostreborn.akira.model.AnimeDetails;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +21,7 @@ public class JikanParser {
 
     public static String getJSON(String path) {
         String url = "https://api.jikan.moe/v4/" + path;
+        Log.e("TAG", url);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).header("Referer", "https://allanime.to").header("Cipher", "AES256-SHA256").header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0").build();
         String rawJson = "{}";
@@ -69,6 +71,22 @@ public class JikanParser {
                         .getString("image_url");
                 Constants.animes.add(new Anime(malID, title, thumbnail));
             }
+        } catch (JSONException e) {
+            Log.e("TAG", "Error parsing JSON: ", e);
+        }
+    }
+
+    public static void animeDetails(String malID) {
+        String path = "anime/" + malID + "?limit=24&sfw";
+        try {
+            JSONObject dataObject = new JSONObject(getJSON(path))
+                    .getJSONObject("data");
+            String name = dataObject.getString("title");
+            String image = dataObject.getJSONObject("images")
+                    .getJSONObject("jpg")
+                    .getString("image_url");
+            String description = dataObject.getString("synopsis");
+            Constants.animeDetails = new AnimeDetails(name,image,description);
         } catch (JSONException e) {
             Log.e("TAG", "Error parsing JSON: ", e);
         }
