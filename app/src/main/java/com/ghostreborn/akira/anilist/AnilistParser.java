@@ -30,11 +30,12 @@ public class AnilistParser {
                 JSONObject entry = entries.getJSONObject(i);
                 JSONObject media = entry.getJSONObject("media");
                 String id = media.getString("idMal");
+                String anilistID = media.getString("id");
                 String mediaListEntryId = entry.getString("id");
                 String title = media.getJSONObject("title").getString("english");
                 String thumbnail = media.getJSONObject("coverImage").getString("large");
                 String progress = entry.getString("progress");
-                Constants.animes.add(new Anime(id, mediaListEntryId,title, thumbnail, progress));
+                Constants.animes.add(new Anime(id, anilistID,mediaListEntryId,title, thumbnail, progress));
             }
         } catch (JSONException e) {
             Log.e("TAG", "Error parsing JSON: ", e);
@@ -52,9 +53,10 @@ public class AnilistParser {
             for (int i=0;i<media.length();i++){
                 JSONObject entry = media.getJSONObject(i);
                 String id = entry.getString("idMal");
+                String anilistID = entry.getString("id");
                 String title = entry.getJSONObject("title").getString("native");
                 String thumbnail = entry.getJSONObject("coverImage").getString("large");
-                Constants.animes.add(new Anime(id, "",title, thumbnail, ""));
+                Constants.animes.add(new Anime(id, anilistID,"",title, thumbnail, ""));
             }
         } catch (JSONException e) {
             Log.e("TAG", "Error parsing JSON: ", e);

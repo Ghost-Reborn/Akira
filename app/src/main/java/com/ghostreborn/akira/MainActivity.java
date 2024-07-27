@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     // TODO fix episodes with null as episodeInfo in parsing section
     // TODO show anime thumbnail if episode thumbnail is not available
     // TODO show which category the anime must be added in AnimeDetailsActivity
-    // TODO fix anime like "Make Heroine ga Oosugiru!" saved as Manga
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

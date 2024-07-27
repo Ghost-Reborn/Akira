@@ -48,6 +48,7 @@ public class AnilistNetwork {
                 "      entries {\n" +
                 "        id\n" +
                 "        media{ \n" +
+                "          id\n" +
                 "          idMal\n" +
                 "          title {\n" +
                 "            english\n" +
@@ -66,7 +67,7 @@ public class AnilistNetwork {
 
     public static String animeDetails(String malId) {
         String graph = "query{\n" +
-                "  Media(idMal:" + malId + "){\n " +
+                "  Media(id:" + malId + "){\n " +
                 "    title{english}\n" +
                 "    coverImage{large}\n" +
                 "    description\n" +
@@ -75,6 +76,7 @@ public class AnilistNetwork {
                 "    \n" +
                 "      edges{\n" +
                 "        node{\n" +
+                "          id\n" +
                 "          idMal\n" +
                 "          title {\n" +
                 "            english\n" +
@@ -92,6 +94,7 @@ public class AnilistNetwork {
         String graph = "query{\n" +
                 "  Page(perPage: 21) {\n" +
                 "    media(search: \"" + animeName + "\", type: ANIME) {\n" +
+                "      id\n" +
                 "      idMal\n" +
                 "      title {\n" +
                 "        native,english\n" +
