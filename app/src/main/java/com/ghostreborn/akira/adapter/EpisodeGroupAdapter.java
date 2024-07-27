@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
-import com.ghostreborn.akira.allAnime.AllAnimeParser;
+import com.ghostreborn.akira.jikan.JikanParser;
 
 import java.util.concurrent.Executors;
 
@@ -44,7 +44,7 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
         holder.episodeGroupTextView.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
             Executors.newSingleThreadExecutor().execute(() -> {
-                AllAnimeParser.getEpisodeDetails(Constants.groupedEpisodes.get(position));
+                JikanParser.episodeDetails(Constants.animeID, page);
                 activity.runOnUiThread(() -> {
                     progressBar.setVisibility(View.GONE);
                     recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -57,7 +57,7 @@ public class EpisodeGroupAdapter extends RecyclerView.Adapter<EpisodeGroupAdapte
 
     @Override
     public int getItemCount() {
-        return Constants.groupedEpisodes.size();
+        return Integer.parseInt(Constants.jikanLastPage);
     }
 
     public static class AnimeViewHolder extends RecyclerView.ViewHolder {

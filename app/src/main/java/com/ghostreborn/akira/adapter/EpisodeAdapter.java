@@ -14,7 +14,6 @@ import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.fragment.ServerFragment;
 import com.ghostreborn.akira.model.Episode;
-import com.squareup.picasso.Picasso;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeViewHolder> {
 
@@ -35,9 +34,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeVie
     @Override
     public void onBindViewHolder(@NonNull EpisodeAdapter.AnimeViewHolder holder, int position) {
         Episode episode = Constants.parsedEpisodes.get(position);
-        Picasso.get()
-                .load(episode.getEpisodeThumbnail())
-                .into(holder.animeEpisodeImageView);
         holder.episodeNumberTextView.setText(episode.getEpisodeNumber());
         holder.episodeTitleTextView.setText(episode.getEpisodeTitle());
         holder.itemView.setOnClickListener(v -> {

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.model.Anime;
 import com.ghostreborn.akira.model.AnimeDetails;
+import com.ghostreborn.akira.model.Episode;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +87,25 @@ public class JikanParser {
                     .getJSONObject("jpg")
                     .getString("image_url");
             String description = dataObject.getString("synopsis");
-            Constants.animeDetails = new AnimeDetails(name,image,description);
+            Constants.animeDetails = new AnimeDetails(name, image, description);
+        } catch (JSONException e) {
+            Log.e("TAG", "Error parsing JSON: ", e);
+        }
+    }
+
+    public static void episodeDetails(String malID, String page) {
+        String path = "anime/" + malID + "/episodes?page="+page;
+        Constants.parsedEpisodes = new ArrayList<>();
+        try {
+            JSONObject dataObject = new JSONObject(getJSON(path));
+            JSONArray dataArray = dataObject.getJSONArray("data");
+            Constants.jikanLastPage = dataObject.getJSONObject("pagination").getString("last_visible_page");
+            for (int i = 0; i < dataArray.length(); i++) {
+                JSONObject data = dataArray.getJSONObject(i);
+                String episodeNumber = data.getString("mal_id");
+                String title = data.getString("title");
+                Constants.parsedEpisodes.add(new Episode(episodeNumber, title));
+            }
         } catch (JSONException e) {
             Log.e("TAG", "Error parsing JSON: ", e);
         }

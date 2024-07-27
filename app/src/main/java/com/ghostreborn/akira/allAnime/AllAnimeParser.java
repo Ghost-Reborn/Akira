@@ -120,7 +120,7 @@ public class AllAnimeParser {
 
                 String episodeThumbnail = "https://wp.youtube-anime.com/s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg?w=250";
                 if (episodeObject.isNull("episodeInfo")){
-                    out.add(new Episode(episodes.get(i), "Episode " + episodes.get(i), episodeThumbnail));
+                    out.add(new Episode(episodes.get(i), "Episode " + episodes.get(i)));
                     continue;
                 }
 
@@ -140,7 +140,7 @@ public class AllAnimeParser {
                 }
 
                 // Add the new Episode object to the list
-                out.add(new Episode(episodes.get(i), episodeTitle, episodeThumbnail));
+                out.add(new Episode(episodes.get(i), episodeTitle));
             } catch (JSONException e) {
                 Log.e("AllAnimeParser", "Error parsing JSON: ", e);
                 out.add(null);

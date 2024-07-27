@@ -15,5 +15,6 @@ public class Constants {
     public static ArrayList<String> episodes;
     public static ArrayList<Episode> parsedEpisodes;
     public static ArrayList<ArrayList<String>> groupedEpisodes;
+    public static String jikanLastPage = "1";
 
 }

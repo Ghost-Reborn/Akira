@@ -12,7 +12,7 @@ import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.adapter.EpisodeAdapter;
 import com.ghostreborn.akira.adapter.EpisodeGroupAdapter;
-import com.ghostreborn.akira.allAnime.AllAnimeParser;
+import com.ghostreborn.akira.jikan.JikanParser;
 
 import java.util.concurrent.Executors;
 
@@ -28,18 +28,17 @@ public class EpisodesActivity extends AppCompatActivity {
         ProgressBar episodeProgress = findViewById(R.id.episode_progress_bar);
 
         Executors.newSingleThreadExecutor().execute(() -> {
-            AllAnimeParser.getEpisodeDetails(Constants.groupedEpisodes.get(0));
+            JikanParser.episodeDetails(Constants.animeID, "1");
             runOnUiThread(() -> {
                 episodeProgress.setVisibility(View.GONE);
                 episodesRecycler.setLayoutManager(new LinearLayoutManager(this));
                 EpisodeAdapter adapter = new EpisodeAdapter(this);
                 episodesRecycler.setAdapter(adapter);
+                episodeGroupRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                EpisodeGroupAdapter episodeGroupAdapter = new EpisodeGroupAdapter(this, episodesRecycler, episodeProgress);
+                episodeGroupRecycler.setAdapter(episodeGroupAdapter);
             });
         });
-
-        episodeGroupRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        EpisodeGroupAdapter episodeGroupAdapter = new EpisodeGroupAdapter(this, episodesRecycler, episodeProgress);
-        episodeGroupRecycler.setAdapter(episodeGroupAdapter);
 
     }
 }

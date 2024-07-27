@@ -4,16 +4,13 @@ public class Episode {
 
     private final String episodeNumber;
     private final String episodeTitle;
-    private final String episodeThumbnail;
 
     public Episode(
             String episodeNumber,
-            String episodeTitle,
-            String episodeThumbnail
+            String episodeTitle
     ) {
         this.episodeNumber = episodeNumber;
         this.episodeTitle = episodeTitle;
-        this.episodeThumbnail = episodeThumbnail;
     }
 
     public String getEpisodeTitle() {
@@ -24,7 +21,4 @@ public class Episode {
         return episodeNumber;
     }
 
-    public String getEpisodeThumbnail() {
-        return episodeThumbnail;
-    }
 }
