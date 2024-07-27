@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Constants {
 
     public static final String sharedPreference = "Akira";
-    public static final String akiraCode = "AkiraCode";
     public static final String akiraLoggedIn = "AkiraLoggedIn";
     public static final String akiraToken = "AkiraToken";
     public static String episodeUrl;
