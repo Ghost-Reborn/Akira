@@ -2,6 +2,9 @@ package com.ghostreborn.akira;
 
 public class AnilistConstants {
 
+    public static final String CLIENT_ID = "20149";
+    public static final String REDIRECT_URI = "wanpisu://ghostreborn.in";
+
     public static final String TYPE_ANIME = "ANIME";
     public static final String TYPE_MANGA = "MANGA";
 
