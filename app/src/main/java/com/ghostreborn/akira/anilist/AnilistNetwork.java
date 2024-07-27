@@ -104,4 +104,19 @@ public class AnilistNetwork {
         return connectAnilist(graph);
     }
 
+    public static String saveAnimeProgress(String malId, String progress) {
+        String graph = "mutation {\n" +
+                "  SaveMediaListEntry(\n" +
+                "    mediaId: " + malId + "\n" +
+                "    status: CURRENT\n" +
+                "    progress: " + progress + " \n" +
+                "  ) {\n" +
+                "    id\n" +
+                "    status\n" +
+                "    progress\n" +
+                "  }\n" +
+                "}";
+        return connectAnilist(graph);
+    }
+
 }
