@@ -16,7 +16,7 @@ import com.ghostreborn.akira.AnilistConstants;
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
 import com.ghostreborn.akira.anilist.AnilistNetwork;
-import com.ghostreborn.akira.anilist.AnilistParser;
+import com.ghostreborn.akira.anilist.AnilistUtils;
 
 import java.util.concurrent.Executors;
 
@@ -71,7 +71,7 @@ public class TestFragment extends Fragment {
         if (uri != null) {
             String code = uri.getQueryParameter("code");
             Executors.newSingleThreadExecutor().execute(() -> {
-                AnilistParser.getToken(code, getActivity());
+                AnilistUtils.getToken(code, getActivity());
             });
         }
     }

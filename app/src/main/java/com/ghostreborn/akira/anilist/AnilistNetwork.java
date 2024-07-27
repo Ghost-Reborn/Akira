@@ -14,7 +14,7 @@ import okhttp3.Response;
 
 public class AnilistNetwork {
 
-    private static String connectAnilist(String token, String qraph){
+    private static String connectAnilist(String token, String qraph) {
         OkHttpClient client = new OkHttpClient();
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -39,18 +39,21 @@ public class AnilistNetwork {
         return "{}";
     }
 
-    public static String animeList(String token, String userId, String type, String status){
+    public static String animeList(String token, String userId, String type, String status) {
         String graph = "query{\n" +
-                "  MediaListCollection(userId:"+userId+",type:"+type+",status:"+status+"){\n" +
+                "  MediaListCollection(userId:" + userId + ",type:" + type + ",status:" + status + "){\n" +
                 "    lists{\n" +
                 "      entries {\n" +
-                "        media{\n" +
+                "        media{ \n" +
+                "          idMal\n" +
                 "          title {\n" +
                 "            english\n" +
                 "          }\n" +
+                "          coverImage {\n" +
+                "            medium\n" +
+                "          }\n" +
                 "        }\n" +
                 "      }\n" +
-                "      status\n" +
                 "    }\n" +
                 "  }\n" +
                 "}";
