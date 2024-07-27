@@ -39,7 +39,15 @@ public class HomeFragment extends Fragment {
         SearchView animeSearchView = view.findViewById(R.id.anime_search_view);
         animeRecyclerView.setLayoutManager(new GridLayoutManager(requireActivity(), 3));
         setSearchView(animeSearchView, animeRecyclerView);
-        queryPopular(animeRecyclerView);
+        getUserAnime(animeRecyclerView, AnilistConstants.STATUS_CURRENT);
+
+        view.findViewById(R.id.status_current_button).setOnClickListener(v -> getUserAnime(animeRecyclerView, AnilistConstants.STATUS_CURRENT));
+        view.findViewById(R.id.status_planning_button).setOnClickListener(v -> getUserAnime(animeRecyclerView, AnilistConstants.STATUS_PLANNING));
+        view.findViewById(R.id.status_completed_button).setOnClickListener(v -> getUserAnime(animeRecyclerView, AnilistConstants.STATUS_COMPLETED));
+        view.findViewById(R.id.status_dropped_button).setOnClickListener(v -> getUserAnime(animeRecyclerView, AnilistConstants.STATUS_DROPPED));
+        view.findViewById(R.id.status_paused_button).setOnClickListener(v -> getUserAnime(animeRecyclerView, AnilistConstants.STATUS_PAUSED));
+        view.findViewById(R.id.status_repeating_button).setOnClickListener(v -> getUserAnime(animeRecyclerView, AnilistConstants.STATUS_REPEATING));
+
 
         return view;
     }
@@ -62,9 +70,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void queryPopular(RecyclerView animeRecyclerView) {
+    private void getUserAnime(RecyclerView animeRecyclerView, String status) {
         Executors.newSingleThreadExecutor().execute(() -> {
-            AnilistParser.animeList(AnilistConstants.TYPE_ANIME, AnilistConstants.STATUS_CURRENT);
+            AnilistParser.animeList(AnilistConstants.TYPE_ANIME, status);
             requireActivity().runOnUiThread(() -> animeRecyclerView.setAdapter(new AnimeAdapter(getContext())));
         });
     }

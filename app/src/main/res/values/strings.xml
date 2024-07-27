@@ -11,4 +11,10 @@
     <string name="manga">Manga</string>
     <string name="add">Add</string>
     <string name="delete">Delete</string>
+    <string name="current">CURRENT</string>
+    <string name="planning">PLANNING</string>
+    <string name="completed">COMPLETED</string>
+    <string name="dropped">DROPPED</string>
+    <string name="paused">PAUSED</string>
+    <string name="repeating">REPEATING</string>
 </resources>
