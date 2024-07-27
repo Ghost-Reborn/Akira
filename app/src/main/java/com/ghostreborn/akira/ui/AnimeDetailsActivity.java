@@ -37,7 +37,16 @@ public class AnimeDetailsActivity extends AppCompatActivity {
                     return;
                 }
 
-                binding.watchFab.setOnClickListener(v -> startActivity(new Intent(this, EpisodesActivity.class)));
+                // TODO here
+                binding.watchFab.setOnClickListener(v -> {
+                    Executors.newSingleThreadExecutor().execute(() -> {
+
+                        runOnUiThread(() -> {
+
+                        });
+                    });
+                    startActivity(new Intent(this, EpisodesActivity.class));
+                });
 
                 Glide.with(this)
                         .load(Constants.animeDetails.getAnimeBanner())

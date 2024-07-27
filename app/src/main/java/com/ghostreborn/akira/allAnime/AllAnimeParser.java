@@ -213,4 +213,23 @@ public class AllAnimeParser {
         return decryptedString.toString();
     }
 
+    public static String allAnimeIdWithMalId(String animeName, String malId){
+        String rawJSON = AllAnimeNetwork.allAnimeIdWithMalId(animeName, malId);
+        try{
+            JSONArray edges = new JSONObject(rawJSON)
+                    .getJSONObject("data")
+                    .getJSONObject("shows")
+                    .getJSONArray("edges");
+            for (int i=0;i<edges.length();i++){
+                JSONObject anime = edges.getJSONObject(i);
+                if (anime.getString("malId").equals(malId)){
+                    return anime.getString("_id");
+                }
+            }
+        } catch (JSONException e) {
+            Log.e("TAG", "Error parsing JSON: ", e);
+        }
+        return "";
+    }
+
 }

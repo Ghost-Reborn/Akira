@@ -12,15 +12,10 @@ import okhttp3.Response;
 
 public class TestApi {
 
-    public static String testApi() {
-        String variables = "\"type\":\"manga\",\"size\":20,\"dateRange\":1,\"page\":1,\"allowAdult\":false,\"allowUnknown\":false";
-        String queryTypes = "$search:SearchInput,$limit:Int,$page:Int,$translationType:VaildTranslationTypeMangaEnumType,$countryOrigin:VaildCountryOriginEnumType";
-        String query = "mangas(search:$search,limit:$limit,page:$page,translationType:$translationType,countryOrigin:$countryOrigin){edges{" +
-                "_id," +
-                "name," +
-                "englishName," +
-                "thumbnail" +
-                "}}";
+    public static String testApi(String anime,String malID) {
+        String variables = "\"search\":{\"allowAdult\":false,\"allowUnknown\":false,\"query\":\"" + anime + "\"},\"limit\":39,\"page\":1,\"translationType\":\"sub\",\"countryOrigin\":\"ALL\"";
+        String queryTypes = "$search:SearchInput,$limit:Int,$page:Int,$translationType:VaildTranslationTypeEnumType,$countryOrigin:VaildCountryOriginEnumType";
+        String query = "shows(search:$search,limit:$limit,page:$page,translationType:$translationType,countryOrigin:$countryOrigin){edges{_id,malId}}";
         return connectAllAnime(variables, queryTypes, query);
     }
 

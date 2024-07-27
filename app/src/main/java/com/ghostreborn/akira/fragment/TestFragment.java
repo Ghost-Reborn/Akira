@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.ghostreborn.akira.Constants;
 import com.ghostreborn.akira.R;
-import com.ghostreborn.akira.anilist.AnilistParser;
+import com.ghostreborn.akira.allAnime.AllAnimeParser;
 import com.ghostreborn.akira.anilist.AnilistUtils;
 
 import java.util.concurrent.Executors;
@@ -42,9 +42,9 @@ public class TestFragment extends Fragment {
         parseAccessToken();
         if (checkLoggedIn()){
             Executors.newSingleThreadExecutor().execute(() -> {
-                AnilistParser.animeDetails("21");
+                String out = AllAnimeParser.allAnimeIdWithMalId("One Piece", "21");
                 getActivity().runOnUiThread(() -> {
-                    testText.setText("out");
+                    testText.setText(out);
                 });
             });
         }
