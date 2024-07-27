@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO fix episodes with null as episode title
     // TODO fix episodes with null as episodeInfo in parsing section
     // TODO show anime thumbnail if episode thumbnail is not available
-    // TODO show more categories of anime like current, planning, completed, dropped, paused, repeating
+    // TODO show which category the anime must be added in AnimeDetailsActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

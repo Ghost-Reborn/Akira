@@ -15,6 +15,7 @@ public class Constants {
 
     public static String userID = "";
     public static String userToken = "";
+    public static String animeStatus = "";
 
     public static String episodeUrl;
     public static String animeID;

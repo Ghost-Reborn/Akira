@@ -109,7 +109,7 @@ public class AnilistNetwork {
         String graph = "mutation {\n" +
                 "  SaveMediaListEntry(\n" +
                 "    mediaId: " + malId + "\n" +
-                "    status: CURRENT\n" +
+                "    status: " + Constants.animeStatus + "\n" +
                 "    progress: " + progress + " \n" +
                 "  ) {\n" +
                 "    id\n" +

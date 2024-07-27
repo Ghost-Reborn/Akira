@@ -17,4 +17,11 @@
     <string name="dropped">DROPPED</string>
     <string name="paused">PAUSED</string>
     <string name="repeating">REPEATING</string>
+    <string-array name="anime_status">
+        <item>CURRENT</item>
+        <item>COMPLETED</item>
+        <item>DROPPED</item>
+        <item>PLANNING</item>
+        <item>PAUSED</item>
+    </string-array>
 </resources>
