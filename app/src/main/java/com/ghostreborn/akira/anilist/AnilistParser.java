@@ -47,23 +47,17 @@ public class AnilistParser {
                 .addHeader("Accept", "application/json")
                 .build();
 
-        new Thread(() -> {
-            try (Response response = client.newCall(request).execute()) {
-                if (response.isSuccessful() && response.body() != null) {
-                    JSONObject object = new JSONObject(response.body().string());
-                    String accessToken = object.getString("access_token");
-                    SharedPreferences preferences = activity.getSharedPreferences(Constants.sharedPreference, Context.MODE_PRIVATE);
-                    preferences.edit()
-                            .putBoolean(Constants.akiraLoggedIn, true)
-                            .putString(Constants.akiraToken, accessToken)
-                            .apply();
-                } else {
-                    Log.e("TAG", "Request error: " + response.code());
-                }
-            } catch (IOException | JSONException e) {
-                Log.e("TAG", "Error: ", e);
-            }
-        }).start();
-
+        try (Response response = client.newCall(request).execute()) {
+            String accessToken = new JSONObject(response.body().string())
+                    .getString("access_token");;
+            SharedPreferences preferences = activity.getSharedPreferences(Constants.sharedPreference, Context.MODE_PRIVATE);
+            preferences.edit()
+                    .putBoolean(Constants.akiraLoggedIn, true)
+                    .putString(Constants.akiraToken, accessToken)
+                    .apply();
+        } catch (IOException | JSONException e) {
+            Log.e("TAG", "Error: ", e);
+        }
     }
+
 }
