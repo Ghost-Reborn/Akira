@@ -24,27 +24,6 @@ public class AllAnimeNetwork {
         return rawJson;
     }
 
-    public static String queryPopular() {
-        String variables = "\"size\":30,\"type\":\"anime\",\"dateRange\":1,\"page\":1,\"allowAdult\":true,\"allowUnknown\":true";
-        String queryTypes = "$size:Int!,$type:VaildPopularTypeEnumType!,$dateRange:Int!,$page:Int!,$allowAdult:Boolean!,$allowUnknown:Boolean!";
-        String query = "queryPopular(type:$type,size:$size,dateRange:$dateRange,page:$page,allowAdult:$allowAdult,allowUnknown:$allowUnknown){total,recommendations{anyCard{_id,name,englishName,thumbnail}}}";
-        return connectAllAnime(variables, queryTypes, query);
-    }
-
-    public static String searchAnime(String anime) {
-        String variables = "\"search\":{\"allowAdult\":false,\"allowUnknown\":false,\"query\":\"" + anime + "\"},\"limit\":39,\"page\":1,\"translationType\":\"sub\",\"countryOrigin\":\"ALL\"";
-        String queryTypes = "$search:SearchInput,$limit:Int,$page:Int,$translationType:VaildTranslationTypeEnumType,$countryOrigin:VaildCountryOriginEnumType";
-        String query = "shows(search:$search,limit:$limit,page:$page,translationType:$translationType,countryOrigin:$countryOrigin){edges{_id,name,englishName,thumbnail}}";
-        return connectAllAnime(variables, queryTypes, query);
-    }
-
-    public static String animeDetails(String id) {
-        String variables = "\"showId\":\"" + id + "\"";
-        String queryTypes = "$showId:String!";
-        String query = "show(_id:$showId){name,englishName,thumbnail,description,banner,relatedShows,availableEpisodesDetail}";
-        return connectAllAnime(variables, queryTypes, query);
-    }
-
     public static String requiredAnimeDetails(String id){
         String variables = "\"showId\":\"" + id + "\"";
         String queryTypes = "$showId:String!";
@@ -71,7 +50,7 @@ public class AllAnimeNetwork {
         return connectAllAnime(variables, queryTypes, query);
     }
 
-    public static String allAnimeIdWithMalId(String anime, String malId){
+    public static String allAnimeIdWithMalId(String anime){
         String variables = "\"search\":{\"allowAdult\":false,\"allowUnknown\":false,\"query\":\"" + anime + "\"},\"limit\":39,\"page\":1,\"translationType\":\"sub\",\"countryOrigin\":\"ALL\"";
         String queryTypes = "$search:SearchInput,$limit:Int,$page:Int,$translationType:VaildTranslationTypeEnumType,$countryOrigin:VaildCountryOriginEnumType";
         String query = "shows(search:$search,limit:$limit,page:$page,translationType:$translationType,countryOrigin:$countryOrigin){edges{_id,malId}}";
