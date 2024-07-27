@@ -42,6 +42,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.AnimeVie
         holder.episodeTitleTextView.setText(episode.getEpisodeTitle());
         holder.itemView.setOnClickListener(v -> {
             ServerFragment fragment = new ServerFragment(episode.getEpisodeNumber());
+            Constants.currentEpisode = episode.getEpisodeNumber();
             fragment.show(activity.getSupportFragmentManager(), "My Dialog");
         });
     }
