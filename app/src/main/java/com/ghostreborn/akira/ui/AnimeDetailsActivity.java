@@ -105,6 +105,10 @@ public class AnimeDetailsActivity extends AppCompatActivity {
                 String animeProgress = "Watched " + Constants.animeProgress + " Episodes";
                 binding.animeProgressTextView.setText(animeProgress);
 
+                if(!Constants.animeProgress.isEmpty()){
+                    binding.animeProgressAddButton.setText("Update");
+                }
+
                 if (!Constants.animeDetails.getAnimePrequel().isEmpty()){
                     binding.prequelButton.setVisibility(View.VISIBLE);
                     binding.prequelButton.setOnClickListener(v -> {
