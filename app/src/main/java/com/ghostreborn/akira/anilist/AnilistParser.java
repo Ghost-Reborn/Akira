@@ -31,7 +31,7 @@ public class AnilistParser {
                 JSONObject media = entry.getJSONObject("media");
                 String id = media.getString("idMal");
                 String title = media.getJSONObject("title").getString("english");
-                String thumbnail = media.getJSONObject("coverImage").getString("medium");
+                String thumbnail = media.getJSONObject("coverImage").getString("large");
                 String progress = entry.getString("progress");
                 Constants.animes.add(new Anime(id, title, thumbnail, progress));
             }
@@ -52,7 +52,7 @@ public class AnilistParser {
                 JSONObject entry = media.getJSONObject(i);
                 String id = entry.getString("idMal");
                 String title = entry.getJSONObject("title").getString("native");
-                String thumbnail = entry.getJSONObject("coverImage").getString("medium");
+                String thumbnail = entry.getJSONObject("coverImage").getString("large");
                 Constants.animes.add(new Anime(id, title, thumbnail, ""));
             }
         } catch (JSONException e) {
@@ -67,7 +67,7 @@ public class AnilistParser {
                     .getJSONObject("data")
                     .getJSONObject("Media");
             String animeName = mediaObject.getJSONObject("title").getString("english");
-            String animeImage = mediaObject.getJSONObject("coverImage").getString("medium");
+            String animeImage = mediaObject.getJSONObject("coverImage").getString("large");
             String animeDescription = mediaObject.getString("description");
             animeDescription = HtmlCompat.fromHtml(animeDescription, HtmlCompat.FROM_HTML_MODE_COMPACT)
                     .toString();

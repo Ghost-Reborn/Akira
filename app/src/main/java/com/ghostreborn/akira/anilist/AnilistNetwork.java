@@ -52,7 +52,7 @@ public class AnilistNetwork {
                 "            english\n" +
                 "          }\n" +
                 "          coverImage {\n" +
-                "            medium\n" +
+                "            large\n" +
                 "          }\n" +
                 "        }\n" +
                 "        progress\n" +
@@ -67,7 +67,7 @@ public class AnilistNetwork {
         String graph = "query{\n" +
                 "  Media(idMal:" + malId + "){\n " +
                 "    title{english}\n" +
-                "    coverImage{medium}\n" +
+                "    coverImage{large}\n" +
                 "    description\n" +
                 "    bannerImage\n" +
                 "    relations {\n" +
@@ -96,7 +96,7 @@ public class AnilistNetwork {
                 "        native\n" +
                 "      }\n" +
                 "      coverImage{\n" +
-                "        medium\n" +
+                "        large\n" +
                 "      }\n" +
                 "    }\n" +
                 "  }\n" +
