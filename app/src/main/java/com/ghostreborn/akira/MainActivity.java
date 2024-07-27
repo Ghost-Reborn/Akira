@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     // TODO fix episodes with null as episodeInfo in parsing section
     // TODO show anime thumbnail if episode thumbnail is not available
     // TODO use anilist to save progress of anime
-    // TODO get allanime episode details wiith malID afetr showing anime details
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.home_fragment_container, new TestFragment())
+                .replace(R.id.home_fragment_container, new HomeFragment())
                 .commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

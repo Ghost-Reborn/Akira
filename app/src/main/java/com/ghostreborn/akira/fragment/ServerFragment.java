@@ -35,7 +35,7 @@ public class ServerFragment extends DialogFragment {
         fragmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Executors.newSingleThreadExecutor().execute(() -> {
-            ArrayList<String> servers = AllAnimeParser.getSourceUrls(Constants.animeID, episodeNumber);
+            ArrayList<String> servers = AllAnimeParser.getSourceUrls(Constants.allAnimeID, episodeNumber);
             getActivity().runOnUiThread(() -> {
                 serverProgressBar.setVisibility(View.GONE);
                 fragmentRecyclerView.setAdapter(new ServerAdapter(getContext(), servers));
