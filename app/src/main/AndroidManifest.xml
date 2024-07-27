@@ -19,9 +19,6 @@
             android:exported="false"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".ui.ServerActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.EpisodesActivity"
             android:exported="false" />
         <activity
