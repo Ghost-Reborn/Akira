@@ -6,8 +6,9 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/episode_group_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="4dp"
         android:text=""
         app:cornerRadius="50dp"
         app:layout_constraintStart_toStartOf="parent"
