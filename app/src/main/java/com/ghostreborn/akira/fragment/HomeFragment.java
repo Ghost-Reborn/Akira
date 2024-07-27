@@ -33,21 +33,21 @@ public class HomeFragment extends Fragment {
     }
 
     private void setSearchView(SearchView animeSearchView, RecyclerView animeRecyclerView) {
-//        animeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Executors.newSingleThreadExecutor().execute(()->{
-//                    AllAnimeParser.searchAnime(animeSearchView.getQuery().toString());
-//                    requireActivity().runOnUiThread(() -> animeRecyclerView.setAdapter(new AnimeAdapter(getContext())));
-//                });
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
+        animeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Executors.newSingleThreadExecutor().execute(()->{
+                    AnilistParser.searchAnime(animeSearchView.getQuery().toString());
+                    requireActivity().runOnUiThread(() -> animeRecyclerView.setAdapter(new AnimeAdapter(getContext())));
+                });
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     private void queryPopular(RecyclerView animeRecyclerView) {

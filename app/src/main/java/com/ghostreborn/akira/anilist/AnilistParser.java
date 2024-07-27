@@ -40,6 +40,26 @@ public class AnilistParser {
         }
     }
 
+    public static void searchAnime(String anime) {
+        Constants.animes = new ArrayList<>();
+        String rawJSON = AnilistNetwork.searchAnime(anime);
+        try {
+            JSONArray media = new JSONObject(rawJSON)
+                    .getJSONObject("data")
+                    .getJSONObject("Page")
+                    .getJSONArray("media");
+            for (int i=0;i<media.length();i++){
+                JSONObject entry = media.getJSONObject(i);
+                String id = entry.getString("idMal");
+                String title = entry.getJSONObject("title").getString("native");
+                String thumbnail = entry.getJSONObject("coverImage").getString("medium");
+                Constants.animes.add(new Anime(id, title, thumbnail, ""));
+            }
+        } catch (JSONException e) {
+            Log.e("TAG", "Error parsing JSON: ", e);
+        }
+    }
+
     public static void animeDetails(String id) {
         String rawJSON = AnilistNetwork.animeDetails(id);
         try {

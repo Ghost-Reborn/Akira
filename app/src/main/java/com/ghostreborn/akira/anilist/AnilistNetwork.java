@@ -66,25 +66,42 @@ public class AnilistNetwork {
     public static String animeDetails(String malId) {
         String graph = "query{\n" +
                 "  Media(idMal:" + malId + "){\n " +
-            "    title{english}\n" +
-                    "    coverImage{medium}\n" +
-                    "    description\n" +
-                    "    bannerImage\n" +
-                    "    relations {\n" +
-                    "    \n" +
-                    "      edges{\n" +
-                    "        node{\n" +
-                    "          idMal\n" +
-                    "          title {\n" +
-                    "            english\n" +
-                    "          }\n" +
-                    "        }\n" +
-                    "        relationType\n" +
-                    "      }\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "}";
+                "    title{english}\n" +
+                "    coverImage{medium}\n" +
+                "    description\n" +
+                "    bannerImage\n" +
+                "    relations {\n" +
+                "    \n" +
+                "      edges{\n" +
+                "        node{\n" +
+                "          idMal\n" +
+                "          title {\n" +
+                "            english\n" +
+                "          }\n" +
+                "        }\n" +
+                "        relationType\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}";
         return connectAnilist(graph);
-        }
-
     }
+
+    public static String searchAnime(String animeName) {
+        String graph = "query{\n" +
+                "  Page(perPage: 21) {\n" +
+                "    media(search: \"" + animeName + "\", type: ANIME) {\n" +
+                "      idMal\n" +
+                "      title {\n" +
+                "        native\n" +
+                "      }\n" +
+                "      coverImage{\n" +
+                "        medium\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}";
+        return connectAnilist(graph);
+    }
+
+}
