@@ -4,6 +4,9 @@
 <p align="center">
     <h1 align="center">AKIRA</h1>
 </p>
+<p>
+    <h5 align="center">Shifted to <a href="https://github.com/TorqueReborn/Akira">here</a></h5>
+</p>
 <p align="center">
     <em>Android App to watch Anime</em>
 </p>
