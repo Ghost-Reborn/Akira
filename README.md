@@ -5,7 +5,8 @@
     <h1 align="center">AKIRA</h1>
 </p>
 <p>
-    <h5 align="center">Shifted to <a href="https://github.com/TorqueReborn/Akira">here</a></h5>
+    <h2 align="center">Original Shifted to <a href="https://github.com/TorqueReborn/Akira_Reborn">here</a></h5>
+    <h3 align="center">Revised version Shifted to <a href="https://github.com/TorqueReborn/Akira">here</a></h5>
 </p>
 <p align="center">
     <em>Android App to watch Anime</em>
